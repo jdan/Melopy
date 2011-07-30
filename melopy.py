@@ -96,7 +96,7 @@ class Melopy:
 		return self.iterate(start, major_steps)
 		
 	def generate_minor_scale(self, start):
-		minor_steps = [2,1,2,2,1,2,2]
+		minor_steps = [2,1,2,2,2,1,2]
 		return self.iterate(start, minor_steps)
 		
 	def generate_major_triad(self, start):
