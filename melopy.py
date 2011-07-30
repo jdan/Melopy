@@ -31,6 +31,31 @@ def note_from_key(key):
 	note = notes[(key-1) % 12]
 
 	return note.upper() + str(octave)
+	
+def iterate(start, pattern):
+	start_key = key_from_note(start)
+	ret = [start_key]
+	for step in pattern:
+		ret.append(ret[-1] + step)
+		
+	ret = map(note_from_key, ret)
+	return ret
+	
+def generate_major_scale(start):
+	major_steps = [2,2,1,2,2,2,1]
+	return iterate(start, major_steps)
+	
+def generate_minor_scale(start):
+	minor_steps = [2,1,2,2,2,1,2]
+	return iterate(start, minor_steps)
+	
+def generate_major_triad(start):
+	major_triad = [4, 3]
+	return iterate(start, major_triad)
+	
+def generate_minor_triad(start):
+	minor_triad = [3, 4]
+	return iterate(start, minor_triad)
 
 class Melopy:
 	def __init__(self, title='sound', volume=50):
@@ -81,35 +106,14 @@ class Melopy:
 		
 	def add_triangle_wave(self, frequency, length, location='END'):
 		self.add_wave('triangle', frequency, length, location)
-				
-	def iterate(self, start, pattern):
-		start_key = key_from_note(start)
-		ret = [start_key]
-		for step in pattern:
-			ret.append(ret[-1] + step)
-			
-		ret = map(note_from_key, ret)
-		return ret
-		
-	def generate_major_scale(self, start):
-		major_steps = [2,2,1,2,2,2,1]
-		return self.iterate(start, major_steps)
-		
-	def generate_minor_scale(self, start):
-		minor_steps = [2,1,2,2,2,1,2]
-		return self.iterate(start, minor_steps)
-		
-	def generate_major_triad(self, start):
-		major_triad = [4, 3]
-		return self.iterate(start, major_triad)
-		
-	def generate_minor_triad(self, start):
-		minor_triad = [3, 4]
-		return self.iterate(start, minor_triad)
 		
 	def add_melody(self, melody, length, wave_form='square'):
 		for note in melody:
 			self.add_wave(wave_form, frequency_from_note(note), length)
+			
+	def add_rest(length):
+		for i in range(self.rate * length):
+			self.data.append(0)
 	
 	def render(self):
 		for item in self.data:
