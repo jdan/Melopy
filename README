@@ -3,6 +3,9 @@ A python library for playing with sound.
 by Jordan Scales (http://jordanscales.com)
 on Github: http://github.com/prezjordan/Melopy
 
+For an example: check out canon.py 
+    $ python canon.py
+
 Recent Changes
 - Code pushed to github
 - Added library methods (outside of Melopy class)
@@ -32,6 +35,22 @@ Brief Documentation
     Returns a string representing a note which is (key) keys from A0
     note_from_key(49) => 'A4'
 
+- generate_major_scale(start)
+    Calls iterate() with the starting note and the pattern [2,2,1,2,2,2]
+    generate_major_scale('D4') => ['D4','E4','F#4','G4','A4','B4','C#5']
+
+- generate_minor_scale(start)
+    Calls iterate with the starting note and the pattern [2,1,2,2,1,2]
+    generate_minor_scale('C4') => ['C4','D4','E4','F4','G4','A4','A#4']
+
+- generate_major_triad(start)
+    Calls iterate with the starting note and the pattern [4, 3]
+    generate_major_triad('A4') => ['A4', 'C#5', 'E5']
+
+- generate_minor_triad(start)
+    Calls iterate with the starting note and the pattern [3, 4]
+    generate_minor_triad('C5') => ['C5', 'D#5', 'G5']
+
 = Class Methods
 * Instance Variables
   melopy_writer -> bitwise writer for creating the .wav file
@@ -57,24 +76,11 @@ Brief Documentation
 - iterate(start, pattern)
     Generates an array of notes given a starting note and a pattern of gaps between notes. This is better explained below.
 
-- generate_major_scale(start)
-    Calls iterate() with the starting note and the pattern [2,2,1,2,2,2,1]
-    generate_major_scale('D4') => ['D4','E4','F#4','G4','A4','B4','C#5','D5']
-
-- generate_minor_scale(start)
-    Calls iterate with the starting note and the pattern [2,1,2,2,1,2,2]
-    generate_minor_scale('C4') => ['C4','D4','E4','F4','G4','A4','A#4','C5']
-
-- generate_major_triad(start)
-    Calls iterate with the starting note and the pattern [4, 3]
-    generate_major_triad('A4') => ['A4', 'C#5', 'E5']
-
-- generate_minor_triad(start)
-    Calls iterate with the starting note and the pattern [3, 4]
-    generate_minor_triad('C5') => ['C5', 'D#5', 'G5']
-
 - add_melody(melody, length, wave_from [DEFAULT 'square'])
     Adds given notes in a melody to the wave data, each having the given length
+
+- add_rest(length)
+    Adds a rest (nothing) for a given time (in seconds)
 
 - render()
     Renders the wave data into a wav file.
