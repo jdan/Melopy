@@ -42,11 +42,11 @@ def iterate(start, pattern):
 	return ret
 	
 def generate_major_scale(start):
-	major_steps = [2,2,1,2,2,2,1]
+	major_steps = [2,2,1,2,2,2]
 	return iterate(start, major_steps)
 	
 def generate_minor_scale(start):
-	minor_steps = [2,1,2,2,2,1,2]
+	minor_steps = [2,1,2,2,2,1]
 	return iterate(start, minor_steps)
 	
 def generate_major_triad(start):
@@ -111,8 +111,8 @@ class Melopy:
 		for note in melody:
 			self.add_wave(wave_form, frequency_from_note(note), length)
 			
-	def add_rest(length):
-		for i in range(self.rate * length):
+	def add_rest(self, length):
+		for i in range(int(self.rate * length)):
 			self.data.append(0)
 	
 	def render(self):
