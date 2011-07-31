@@ -46,7 +46,7 @@ def generate_major_scale(start):
 	return iterate(start, major_steps)
 	
 def generate_minor_scale(start):
-	minor_steps = [2,1,2,2,2,1]
+	minor_steps = [2,1,2,2,1,2]
 	return iterate(start, minor_steps)
 	
 def generate_major_triad(start):
