@@ -6,14 +6,8 @@ on Github: http://github.com/prezjordan/Melopy
 For an example: check out canon.py 
     $ python canon.py
 
-Recent Changes
-- Code pushed to github
-- Added library methods (outside of Melopy class)
-- Added README (well, doing it now)
-
 To-do
 - Implement custom wave-types
-- Create more examples (getting_started.py)
 - Create project page
 - Add music reader
 - Add types of scales?
