@@ -62,8 +62,7 @@ class Melopy:
 		if title == '':
 			raise Exception('Title must be non-null.')
 			
-		self.melopy_writer = wave.open(title + '.wav', 'w')
-		self.melopy_writer.setparams((2, 2, 44100, 0, 'NONE', 'not compressed'))
+		self.title = title.lower()
 		self.rate = 44100
 		self.volume = volume / 100.0 * 32767
 		self.data = []
@@ -84,8 +83,12 @@ class Melopy:
 			
 			if wave_type == 'square':
 				val = (n % int(period) >= (int(period)/2)) * self.volume
-			elif wave_type == 'triangle':
+			elif wave_type == 'sawtooth':
 				val = (n % int(period)) / period * self.volume
+			elif wave_type == 'triangle':
+				val = 2 * (n % int(period)) / period * self.volume
+				if n % int(period) >= (int(period) / 2):
+					val = 2 * self.volume - val
 			
 			if location + n >= len(self.data):
 				self.data.append(val)
@@ -98,11 +101,16 @@ class Melopy:
 	def add_note(self, note, length, wave_type='square', location='END'):
 		if wave_type == 'square':
 			self.add_square_wave(frequency_from_note(note), length, location)
+		elif wave_type == 'sawtooth':
+			self.add_sawtooth_wave(frequency_from_note(note), length, location)
 		elif wave_type == 'triangle':
 			self.add_triangle_wave(frequency_from_note(note), length, location)
 					
 	def add_square_wave(self, frequency, length, location='END'):
 		self.add_wave('square', frequency, length, location)
+		
+	def add_sawtooth_wave(self, frequency, length, location='END'):
+		self.add_wave('sawtooth', frequency, length, location)
 		
 	def add_triangle_wave(self, frequency, length, location='END'):
 		self.add_wave('triangle', frequency, length, location)
@@ -116,12 +124,15 @@ class Melopy:
 			self.data.append(0)
 	
 	def render(self):
+		melopy_writer = wave.open(self.title + '.wav', 'w')
+		melopy_writer.setparams((2, 2, 44100, 0, 'NONE', 'not compressed'))
+		
 		for item in self.data:
 			packed_val = struct.pack('h', int(item))
-			self.melopy_writer.writeframes(packed_val)
-			self.melopy_writer.writeframes(packed_val)
+			melopy_writer.writeframes(packed_val)
+			melopy_writer.writeframes(packed_val)
 
-		self.melopy_writer.close()
+		melopy_writer.close()
 
 			
 			
