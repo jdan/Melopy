@@ -66,6 +66,9 @@ Brief Documentation
 - add_square_wave(frequency, length, location [DEFAULT 'END'])
     Adds a square wave using add_wave()
 
+- add_sawtooth_wave(frequency, length, location [DEFAULT 'END'])
+    Adds a sawtooth wave using add_wave()
+
 - add_triangle_wave(frequency, length, location [DEFAULT 'END'])
     Adds a triangle wave using add_wave()
 
