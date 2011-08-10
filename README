@@ -61,6 +61,9 @@ Brief Documentation
 - __init__(title, volume [DEFAULT 50])
     Constructor to create an instance of the Melopy class
 
+- __del__
+    Destructor that renders the waveform
+
 - add_wave(wave_type, frequency, length, location [DEFAULT 'END'])
     Adds a wave with a given frequency, length (in seconds) at a given location (in seconds)
 
@@ -69,7 +72,7 @@ Brief Documentation
     Also try add_quarter_note, add_half_note, add_whole_note, add_eighth_note, add_sixteenth_note instead of specifying a length
 
 - iterate(start, pattern)
-    Generates an array of notes given a starting note and a pattern of gaps between notes. This is better explained below.
+    Generates an array of notes given a starting note and a pattern of gaps between notes. This is better explained below
 
 - add_melody(melody, length, wave_from [DEFAULT 'square'])
     Adds given notes in a melody to the wave data, each having the given length
@@ -77,6 +80,3 @@ Brief Documentation
 - add_rest(length)
     Adds a rest (nothing) for a given time (in seconds)
     Also add_whole_rest, add_quarter_rest, etc. (instead of specifying a length)
-
-- render()
-    Renders the wave data into a wav file.
