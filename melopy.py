@@ -58,7 +58,7 @@ def generate_minor_triad(start):
 	return iterate(start, minor_triad)
 
 class Melopy:
-	def __init__(self, title='sound', volume=50):
+	def __init__(self, title='sound', volume=50, tempo=120, octave=4):
 		if title == '':
 			raise Exception('Title must be non-null.')
 			
@@ -67,7 +67,11 @@ class Melopy:
 		self.volume = volume / 100.0 * 32767
 		self.data = []
 		
-	def add_wave(self, wave_type, frequency, length, location='END'):
+		self.tempo = tempo
+		self.octave = octave
+		self.wave_type = 'triangle'
+		
+	def add_wave(self, frequency, length, location='END'):
 		if location == 'END':
 			location = len(self.data)
 		elif location < 0:
@@ -81,11 +85,11 @@ class Melopy:
 		for n in range(0, int(44100 * length)):
 			period = 44100.0 / frequency
 			
-			if wave_type == 'square':
+			if self.wave_type == 'square':
 				val = (n % int(period) >= (int(period)/2)) * self.volume
-			elif wave_type == 'sawtooth':
+			elif self.wave_type == 'sawtooth':
 				val = (n % int(period)) / period * self.volume
-			elif wave_type == 'triangle':
+			elif self.wave_type == 'triangle':
 				val = 2 * (n % int(period)) / period * self.volume
 				if n % int(period) >= (int(period) / 2):
 					val = 2 * self.volume - val
@@ -98,30 +102,56 @@ class Melopy:
 				if self.data[location + n] > self.volume:
 					self.data[location + n] = self.volume
 					
-	def add_note(self, note, length, wave_type='square', location='END'):
-		if wave_type == 'square':
-			self.add_square_wave(frequency_from_note(note), length, location)
-		elif wave_type == 'sawtooth':
-			self.add_sawtooth_wave(frequency_from_note(note), length, location)
-		elif wave_type == 'triangle':
-			self.add_triangle_wave(frequency_from_note(note), length, location)
-					
-	def add_square_wave(self, frequency, length, location='END'):
-		self.add_wave('square', frequency, length, location)
+	def add_note(self, note, length, location='END'):
+		if note[-1] not in '0123456789':
+			note += str(self.octave)
+		self.add_wave(frequency_from_note(note), length, location)
 		
-	def add_sawtooth_wave(self, frequency, length, location='END'):
-		self.add_wave('sawtooth', frequency, length, location)
-		
-	def add_triangle_wave(self, frequency, length, location='END'):
-		self.add_wave('triangle', frequency, length, location)
-		
-	def add_melody(self, melody, length, wave_form='square'):
+	def add_melody(self, melody, length):
 		for note in melody:
-			self.add_wave(wave_form, frequency_from_note(note), length)
+			if note[-1] not in '0123456789':
+				note += self.octave
+			self.add_wave(frequency_from_note(note), length)
 			
+	def add_whole_note(self, note):
+		self.add_note(note, 60.0 / self.tempo * 4)
+		
+	def add_half_note(self, note):
+		self.add_note(note, 60.0 / self.tempo * 2)
+		
+	def add_quarter_note(self, note):
+		self.add_note(note, 60.0 / self.tempo)
+		
+	def add_eighth_note(self, note):
+		self.add_note(note, 60.0 / self.tempo / 2)
+		
+	def add_sixteenth_note(self, note):
+		self.add_note(note, 60.0 / self.tempo / 4)
+		
+	def add_fractional_note(self, note, fraction):
+		self.add_note(note, 60.0 / self.tempo * (fraction * 4))
+		
 	def add_rest(self, length):
 		for i in range(int(self.rate * length)):
 			self.data.append(0)
+			
+	def add_whole_rest(self):
+		self.add_rest(60.0 / self.tempp * 4)
+		
+	def add_half_rest(self):
+		self.add_rest(60.0 / self.tempo * 2)
+			
+	def add_quarter_rest(self):
+		self.add_rest(60.0 / self.tempo)
+		
+	def add_eighth_rest(self):
+		self.add_rest(60.0 / self.tempo / 2)
+		
+	def add_sixteenth_rest(self):
+		self.add_rest(60.0 / self.tempo / 4)
+		
+	def add_fractional_rest(self, fraction):
+		self.add_rest(60.0 / self.tempo * (fraction * 4))
 	
 	def render(self):
 		melopy_writer = wave.open(self.title + '.wav', 'w')
@@ -133,6 +163,4 @@ class Melopy:
 			melopy_writer.writeframes(packed_val)
 
 		melopy_writer.close()
-
-			
-			
+		
