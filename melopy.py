@@ -71,6 +71,17 @@ class Melopy:
 		self.octave = octave
 		self.wave_type = 'triangle'
 		
+	def __del__(self):
+		melopy_writer = wave.open(self.title + '.wav', 'w')
+		melopy_writer.setparams((2, 2, 44100, 0, 'NONE', 'not compressed'))
+		
+		for item in self.data:
+			packed_val = struct.pack('h', int(item))
+			melopy_writer.writeframes(packed_val)
+			melopy_writer.writeframes(packed_val)
+
+		melopy_writer.close()
+		
 	def add_wave(self, frequency, length, location='END'):
 		if location == 'END':
 			location = len(self.data)
@@ -152,15 +163,4 @@ class Melopy:
 		
 	def add_fractional_rest(self, fraction):
 		self.add_rest(60.0 / self.tempo * (fraction * 4))
-	
-	def render(self):
-		melopy_writer = wave.open(self.title + '.wav', 'w')
-		melopy_writer.setparams((2, 2, 44100, 0, 'NONE', 'not compressed'))
-		
-		for item in self.data:
-			packed_val = struct.pack('h', int(item))
-			melopy_writer.writeframes(packed_val)
-			melopy_writer.writeframes(packed_val)
-
-		melopy_writer.close()
 		
