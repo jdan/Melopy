@@ -21,8 +21,6 @@ twinkle(part1notes)
 twinkle(part2notes)
 twinkle(part2notes)
 twinkle(part1notes)
-
-song.render()
 		
 
 
