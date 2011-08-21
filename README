@@ -62,7 +62,7 @@ Brief Documentation
     Constructor to create an instance of the Melopy class
 
 - __del__
-    Destructor that renders the waveform
+    Destructor that calls render()
 
 - add_wave(wave_type, frequency, length, location [DEFAULT 'END'])
     Adds a wave with a given frequency, length (in seconds) at a given location (in seconds)
@@ -80,3 +80,6 @@ Brief Documentation
 - add_rest(length)
     Adds a rest (nothing) for a given time (in seconds)
     Also add_whole_rest, add_quarter_rest, etc. (instead of specifying a length)
+
+- render()
+    Renders the wave form to a wav file
