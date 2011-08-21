@@ -72,15 +72,7 @@ class Melopy:
 		self.wave_type = 'triangle'
 		
 	def __del__(self):
-		melopy_writer = wave.open(self.title + '.wav', 'w')
-		melopy_writer.setparams((2, 2, 44100, 0, 'NONE', 'not compressed'))
-		
-		for item in self.data:
-			packed_val = struct.pack('h', int(item))
-			melopy_writer.writeframes(packed_val)
-			melopy_writer.writeframes(packed_val)
-
-		melopy_writer.close()
+		self.render()
 		
 	def add_wave(self, frequency, length, location='END'):
 		if location == 'END':
@@ -97,13 +89,14 @@ class Melopy:
 			period = 44100.0 / frequency
 			
 			if self.wave_type == 'square':
-				val = (n % int(period) >= (int(period)/2)) * self.volume
+				val = ((n % int(period) >= (int(period)/2)) * self.volume * 2) - self.volume
 			elif self.wave_type == 'sawtooth':
-				val = (n % int(period)) / period * self.volume
+				val = ((n % int(period)) / period * self.volume * 2) - self.volume
 			elif self.wave_type == 'triangle':
 				val = 2 * (n % int(period)) / period * self.volume
 				if n % int(period) >= (int(period) / 2):
 					val = 2 * self.volume - val
+				val = 2 * val - self.volume
 			
 			if location + n >= len(self.data):
 				self.data.append(val)
@@ -163,4 +156,15 @@ class Melopy:
 		
 	def add_fractional_rest(self, fraction):
 		self.add_rest(60.0 / self.tempo * (fraction * 4))
+		
+	def render(self):
+		melopy_writer = wave.open(self.title + '.wav', 'w')
+		melopy_writer.setparams((2, 2, 44100, 0, 'NONE', 'not compressed'))
+		
+		for item in self.data:
+			packed_val = struct.pack('h', int(item))
+			melopy_writer.writeframes(packed_val)
+			melopy_writer.writeframes(packed_val)
+
+		melopy_writer.close()
 		
