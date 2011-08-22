@@ -55,7 +55,7 @@ Brief Documentation
   data -> array containing bytes to write to the wav file
   octave -> default octave if one is not specified in a melody
   tempo -> self explanitory
-  wave_type -> sine, triangle, sawtooth, or square. the wave_type you will be adding when methods are called
+  wave_type -> sine, triangle, sawtooth, or square. the wave_type you will be adding when methods are called. Default is sine.
 
 * Instance Methods
 - __init__(title, volume [DEFAULT 50])
