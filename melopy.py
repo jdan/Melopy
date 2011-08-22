@@ -69,7 +69,7 @@ class Melopy:
 		
 		self.tempo = tempo
 		self.octave = octave
-		self.wave_type = 'triangle'
+		self.wave_type = 'sine'
 		
 	def __del__(self):
 		self.render()
@@ -97,6 +97,8 @@ class Melopy:
 				if n % int(period) >= (int(period) / 2):
 					val = 2 * self.volume - val
 				val = 2 * val - self.volume
+			else: # default to sine
+				val = self.volume * math.sin(2 * math.pi * n / period)
 			
 			if location + n >= len(self.data):
 				self.data.append(val)
