@@ -1,3 +1,7 @@
-*.pyc
+.DS_Store
+*.py[co]
 *.wav
+build/
+dist/
+*.egg-info
 
