@@ -1,4 +1,9 @@
-from melopy import *
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys; sys.path.append('../melopy/')
+
+from melopy.melopy import Melopy
 
 song = Melopy('twinkle')
 
