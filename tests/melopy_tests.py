@@ -40,6 +40,20 @@ class LibraryFunctionsTests(TestCase):
         should_be = ['C4', 'D4', 'Eb4', 'F4', 'G4', 'Ab4', 'Bb4']
         assert generate_minor_scale(start) == should_be
 
+	def test_generate_chromatic_scale(self):
+		start = 'C5'
+		should_be= ['C5', 'C#5', 'D5', 'D#5', 'E5', 'F5', 'F#5', 'G5', 'G#5', 'A5', 'A#5', 'B5']
+        assert generate_chromatic_scale(start) == should_be
+
+	def test_generate_major_pentatonic_scale(self):
+		start = 'C5'
+		should_be = ['C5', 'D5', 'E5', 'G5', 'A5']
+		assert generate_major_pentatonic_scale(start) == should_be
+
+	def test_generate_minor_pentatonic_scale(self):
+		start = 'A5'
+		should_be = ['A5', 'C6', 'D6', 'E6', 'G6']
+		assert generate_minor_pentatonic_scale(start) == should_be
     def test_generate_major_triad(self):
         start = 'A4'
         should_be = ['A4', 'C#5', 'E5']

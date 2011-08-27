@@ -55,6 +55,18 @@ def generate_minor_scale(start):
 	minor_steps = [2,1,2,2,1,2]
 	return iterate(start, minor_steps)
 	
+def generate_chromatic_scale(start):
+	chromatic_steps = [1,1,1,1,1,1,1,1,1,1,1]
+	return iterate(start, chromatic_steps)
+	
+def generate_major_pentatonic_scale(start):
+	major_pentatonic_steps = [2,2,3,2]
+	return iterate(start, major_pentatonic_steps)
+	
+def generate_minor_pentatonic_scale(start):
+	minor_pentatonic_steps = [3,2,2,3]
+	return iterate(start, minor_pentatonic_steps)
+
 def generate_major_triad(start):
 	major_triad = [4, 3]
 	return iterate(start, major_triad)
