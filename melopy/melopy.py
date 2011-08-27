@@ -4,6 +4,9 @@
 import wave, struct, random, math
 import os
 
+class MelopyGenericError(Exception): pass
+class MelopyValueError(ValueError): pass
+
 def frequency_from_key(key):
 	return 440 * 2 ** ((key - 49) / 12.0)
 
@@ -62,8 +65,8 @@ def generate_minor_triad(start):
 
 class Melopy:
 	def __init__(self, title='sound', volume=50, tempo=120, octave=4):
-		if title == '':
-			raise Exception('Title must be non-null.')
+		if not title:
+			raise MelopyValueError('Title must be non-null.')
 			
 		self.title = title.lower()
 		self.rate = 44100
@@ -73,9 +76,6 @@ class Melopy:
 		self.tempo = tempo
 		self.octave = octave
 		self.wave_type = 'sine'
-		
-	def __del__(self):
-		self.render()
 		
 	def add_wave(self, frequency, length, location='END'):
 		if location == 'END':
