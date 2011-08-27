@@ -3,9 +3,9 @@
 
 import sys; sys.path.append('../melopy/')
 
-from melopy.melopy import Melopy
+from melopy import Melopy
 
-if __name__ == "__main__"
+if __name__ == "__main__":
     song = Melopy('twinkle')
 
     song.tempo = 160
