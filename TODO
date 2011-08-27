@@ -2,3 +2,5 @@
 - Create project page
 - Add music reader
 - Add types of scales?
+- Fix scales to work properly (d731ad5)
+- Write to wav file bitwise? Rather than having an overhead
