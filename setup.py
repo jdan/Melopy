@@ -11,7 +11,7 @@ config = {
         'author': u'Jordan Scales',
         'author_email': u'',
         'description': u'Python music library',
-        'long_description': open(u'README').read(),
+        'long_description': open(u'README.markdown').read(),
         'packages': find_packages(),
         'install_requires': [],
         'tests_require': ['nose'],

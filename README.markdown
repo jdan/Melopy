@@ -7,6 +7,21 @@ For an example: check out canon.py
 
     $ python examples/canon.py
 
+To install:
+
+    $ git clone git://github.com/prezjordan/Melopy
+    $ cd Melopy
+    $ python setup.py install
+
+To run the tests:
+
+    $ python setup.py test
+
+or:
+
+    $ pip install -r requirements.txt
+    $ nosetests
+
 
 ## Library methods
 
