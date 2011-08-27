@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys; sys.path.append('../melopy/')
+
 from melopy import *
 
 m = Melopy('canon', 50)
