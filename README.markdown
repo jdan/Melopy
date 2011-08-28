@@ -1,4 +1,4 @@
-# Melopy (melo-pee)
+## Melopy (melo-pee)
 ### A python library for playing with sound. 
 ### by Jordan Scales (http://jordanscales.com)
 ### on Github: http://github.com/prezjordan/Melopy
@@ -103,3 +103,10 @@ All methods that return lists support choosing return types. The defualt return 
         # Renders the wave form to a wav file
         render(self)
 
+## TODO
+* Implement custom wave-types
+* Create project page
+* Add music reader
+* Add types of scales?
+* Fix scales to work properly (d731ad5)
+* Write to wav file bitwise? Rather than having an overhead
