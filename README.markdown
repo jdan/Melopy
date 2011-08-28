@@ -59,11 +59,12 @@ or:
     ['C5', 'D#5', 'G5']
 
 All methods that return lists support choosing return types. The defualt return type is a list. example:
-    >>> generate_minor_scale("A4","tuple")
-    ('A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5')
-    >>> generate_minor_scale("A4","dict")
-    {0: 'A4', 1: 'B4', 2: 'C5', 3: 'D5', 4: 'E5', 5: 'F5', 6: 'G5'}
-
+```
+>>> generate_minor_scale("A4","tuple")
+('A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5')
+>>> generate_minor_scale("A4","dict")
+{0: 'A4', 1: 'B4', 2: 'C5', 3: 'D5', 4: 'E5', 5: 'F5', 6: 'G5'}
+```
 
 
 ## Melopy Class

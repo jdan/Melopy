@@ -1,6 +1,7 @@
 - Implement custom wave-types
 - Create project page
-- Add music reader
+- Add music reader [Maybe use: https://github.com/bfirsh/python-echoprint ??]
 - Add types of scales?
 - Fix scales to work properly (d731ad5)
 - Write to wav file bitwise? Rather than having an overhead
+- Shorten names of functions

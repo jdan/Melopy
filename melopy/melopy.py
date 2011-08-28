@@ -10,7 +10,7 @@ class MelopyValueError(ValueError): pass
 def bReturn(output,Type):
 	"""Returns a selected output assuming input is a list"""
 	O = {} #Empty local dictionary
-	if isinstance(output, list):
+	try:
 		if Type.lower() == "list":
 			return output
 		elif Type.lower() == "tuple":
@@ -21,10 +21,10 @@ def bReturn(output,Type):
 			return O
 		else:
 			raise MelopyGenericError("Unknown type: "+Type)
-	else:
+	except AttributeError, e:
 		MelopyGenericError("Input to bReturn is not a list! Input: "+str(output))
-
-	
+	except Exception, e:
+		print e
 
 def frequency_from_key(key):
 	"""Returns the frequency of the note (key) keys from A0"""
@@ -71,39 +71,47 @@ def iterate(start, pattern):
 	return ret
 	
 def generate_major_scale(start, rType="list"):
-	"""Generates a major scale using the pattern [2,2,1,2,2,2] (Returns: List)"""
+	"""Generates a major scale using the pattern [2,2,1,2,2,2] """
 	major_steps = [2,2,1,2,2,2]
 	return bReturn(iterate(start, major_steps), rType)
 
 def generate_minor_scale(start, rType="list"): #Natural minor
-	"""Generates a minor scale using the pattern [2,1,2,2,1,2] (Returns: List)"""
+	"""Generates a minor scale using the pattern [2,1,2,2,1,2] """
 	minor_steps = [2,1,2,2,1,2]
 	return bReturn(iterate(start, minor_steps),rType)
-	#To be added: Harmonic and Melodic minor scales. Patterns: [2,1,2,2,2,1,2] | [2,1,2,2,2,2,1]
+
+def melodic_minor_scale(start, rType="list"):
+	"""Generates a melodic minor scale using the pattern [2,1,2,2,2,2,1]"""
+	mminor_steps = [2,1,2,2,2,2,1]
+	return bReturn(iterate(start, mminor_steps),rType)
+
+def harmonic_minor_scale(start, rType="list"):
+	"""Generates a harmonic minor scale"""
+	hminor_steps = [2,1,2,2,2,1,2]
+	return bReturn(iterate(start, hminor_steps),rType)
 
 def generate_chromatic_scale(start, rType="list"):
-	"""Generates a chromatic scale using the pattern [1,1,1,1,1,1,1,1,1,1,1] (Returns: List)"""
+	"""Generates a chromatic scale using the pattern [1,1,1,1,1,1,1,1,1,1,1]"""
 	chromatic_steps = [1,1,1,1,1,1,1,1,1,1,1]
 	return bReturn(iterate(start, chromatic_steps),rType)
-	
 
 def generate_major_pentatonic_scale(start, rType="list"):
-	"""Generates a major pentatonic scale using the pattern [2,2,3,2] (Returns: List)"""
+	"""Generates a major pentatonic scale using the pattern [2,2,3,2] """
 	major_pentatonic_steps = [2,2,3,2]
 	return bReturn(iterate(start, major_pentatonic_steps), rType)
 
 def generate_minor_pentatonic_scale(start,rType="list"):
-	"""Generates a minor pentatonic scale using the pattern [3,2,2,3] (Returns: List)"""
+	"""Generates a minor pentatonic scale using the pattern [3,2,2,3] """
 	minor_pentatonic_steps = [3,2,2,3]
 	return bReturn(iterate(start, minor_pentatonic_steps),rType)
 
 def generate_major_triad(start,rType="list"):
-	"""Generates a major triad using the pattern [4,3] (Returns: List)"""
+	"""Generates a major triad using the pattern [4,3] """
 	major_triad = [4, 3]
 	return bReturn(iterate(start, major_triad), rType)
 
 def generate_minor_triad(start,rType="list"):
-	"""Generates a minor triad using the pattern [3,4] (Returns: List)"""
+	"""Generates a minor triad using the pattern [3,4] """
 	minor_triad = [3, 4]
 	return bReturn(iterate(start, minor_triad),rType)
 
