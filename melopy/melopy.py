@@ -10,16 +10,21 @@ class MelopyValueError(ValueError): pass
 def bReturn(output,Type):
 	"""Returns a selected output assuming input is a list"""
 	O = {} #Empty local dictionary
-	if Type.lower() == "list":
-		return output
-	elif Type.lower() == "tuple":
-		return tuple([i for i in output])
-	elif Type.lower() == "dict":
-		for i in range(len(output)):
-			O[i] = output[i]
-		return O
+	if type(Type) is "list":
+		if Type.lower() == "list":
+			return output
+		elif Type.lower() == "tuple":
+			return tuple([i for i in output])
+		elif Type.lower() == "dict":
+			for i in range(len(output)):
+				O[i] = output[i]
+			return O
+		else:
+			raise MelopyGenericError("Unknown type: "+Type)
 	else:
-		raise MelopyValueError("Unknown type: "+Type)
+		MelopyGenericError("Input to bReturn is not a list! Input: "+output)
+
+	
 
 def frequency_from_key(key):
 	"""Returns the frequency of the note (key) keys from A0"""
