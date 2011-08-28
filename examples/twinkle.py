@@ -30,4 +30,5 @@ if __name__ == "__main__":
 
     song.render()
 
-
+# Licensed under The MIT License (MIT)
+# See LICENSE file for more

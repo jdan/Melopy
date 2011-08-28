@@ -70,3 +70,5 @@ class MelopyTests(TestCase):
     def test_dummy(self):
         assert True
 
+# Licensed under The MIT License (MIT)
+# See LICENSE file for more
