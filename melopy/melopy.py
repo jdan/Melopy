@@ -8,12 +8,15 @@ class MelopyGenericError(Exception): pass
 class MelopyValueError(ValueError): pass
 
 def frequency_from_key(key):
+	"""Returns the frequency of the note (key) keys from A0"""
 	return 440 * 2 ** ((key - 49) / 12.0)
 
 def frequency_from_note(note):
+	"""Returns the frequency of a note represented by a string"""
 	return frequency_from_key(key_from_note(note))
 
 def key_from_note(note):
+	"""Returns the key number (keys from A0) from a note represented by a string"""
 	indices = { 'C':0, 'D':2, 'E':4, 'F':5, 'G':7, 'A':9, 'B':11 }
 
 	octave = 4
@@ -32,6 +35,7 @@ def key_from_note(note):
 	return key - 8;
 
 def note_from_key(key):
+	"""Returns a string representing a note which is (key) keys from A0"""
 	notes = ['a','a#','b','c','c#','d','d#','e','f','f#','g','g#']
 	octave = (key+8) / 12
 	note = notes[(key-1) % 12]
@@ -39,6 +43,7 @@ def note_from_key(key):
 	return note.upper() + str(octave)
 	
 def iterate(start, pattern):
+	"""Iterates over a pattern starting at a given note"""
 	start_key = key_from_note(start)
 	ret = [start_key]
 	for step in pattern:
@@ -48,30 +53,37 @@ def iterate(start, pattern):
 	return ret
 	
 def generate_major_scale(start):
+	"""Generates a major scale using the pattern [2,2,1,2,2,2] (Returns: List)"""
 	major_steps = [2,2,1,2,2,2]
 	return iterate(start, major_steps)
 	
 def generate_minor_scale(start):
+	"""Generates a minor scale using the pattern [2,1,2,2,1,2] (Returns: List)"""
 	minor_steps = [2,1,2,2,1,2]
 	return iterate(start, minor_steps)
 	
 def generate_chromatic_scale(start):
+	"""Generates a chromatic scale using the pattern [1,1,1,1,1,1,1,1,1,1,1] (Returns: List)"""
 	chromatic_steps = [1,1,1,1,1,1,1,1,1,1,1]
 	return iterate(start, chromatic_steps)
 	
 def generate_major_pentatonic_scale(start):
+	"""Generates a major pentatonic scale using the pattern [2,2,3,2] (Returns: List)"""
 	major_pentatonic_steps = [2,2,3,2]
 	return iterate(start, major_pentatonic_steps)
 	
 def generate_minor_pentatonic_scale(start):
+	"""Generates a minor pentatonic scale using the pattern [3,2,2,3] (Returns: List)"""
 	minor_pentatonic_steps = [3,2,2,3]
 	return iterate(start, minor_pentatonic_steps)
 
 def generate_major_triad(start):
+	"""Generates a major triad using the pattern [4,3] (Returns: List)"""
 	major_triad = [4, 3]
 	return iterate(start, major_triad)
 	
 def generate_minor_triad(start):
+	"""Generates a minor triad using the pattern [3,4] (Returns: List)"""
 	minor_triad = [3, 4]
 	return iterate(start, minor_triad)
 
