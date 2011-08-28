@@ -1,7 +1,7 @@
-## Melopy (melo-pee)
-### A python library for playing with sound. 
-### by Jordan Scales (http://jordanscales.com)
-### on Github: http://github.com/prezjordan/Melopy
+# Melopy (melo-pee)
+#### A python library for playing with sound. 
+#### by Jordan Scales (http://jordanscales.com)
+#### on Github: http://github.com/prezjordan/Melopy
 
 For an example: check out canon.py 
 
@@ -108,5 +108,5 @@ All methods that return lists support choosing return types. The defualt return 
 * Create project page
 * Add music reader
 * Add types of scales?
-* Fix scales to work properly (d731ad5)
+* Fix scales to work properly (`d731ad5`)
 * Write to wav file bitwise? Rather than having an overhead
