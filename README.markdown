@@ -1,6 +1,7 @@
 # Melopy (melo-pee)
+
 #### A python library for playing with sound. 
-#### by Jordan Scales (http://jordanscales.com)
+#### by Jordan Scales (http://jordanscales.com) and friends
 #### on Github: http://github.com/prezjordan/Melopy
 
 For an example: check out canon.py 
@@ -48,17 +49,16 @@ or:
     >>> melopy.generate_minor_scale('C4')
     ['C4','D4','E4','F4','G4','A4','A#4']
 
-
     >>> # Calls iterate with the starting note and the pattern [4, 3]
     >>> melopy.generate_major_triad('A4')
     ['A4', 'C#5', 'E5']
-
 
     >>> # Calls iterate with the starting note and the pattern [3, 4]
     >>> melopy.generate_minor_triad('C5')
     ['C5', 'D#5', 'G5']
 
-All methods that return lists support choosing return types. The defualt return type is a list. example:
+All methods that return lists support choosing return types. The default return type is a list. example:
+
     >>> generate_minor_scale("A4","tuple")
     ('A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5')
     >>> generate_minor_scale("A4","dict")
