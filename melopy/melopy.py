@@ -10,7 +10,7 @@ class MelopyValueError(ValueError): pass
 def bReturn(output,Type):
 	"""Returns a selected output assuming input is a list"""
 	O = {} #Empty local dictionary
-	if type(Type) is "list":
+	if isinstance(output, list):
 		if Type.lower() == "list":
 			return output
 		elif Type.lower() == "tuple":
@@ -22,7 +22,7 @@ def bReturn(output,Type):
 		else:
 			raise MelopyGenericError("Unknown type: "+Type)
 	else:
-		MelopyGenericError("Input to bReturn is not a list! Input: "+output)
+		MelopyGenericError("Input to bReturn is not a list! Input: "+str(output))
 
 	
 
@@ -74,12 +74,13 @@ def generate_major_scale(start, rType="list"):
 	"""Generates a major scale using the pattern [2,2,1,2,2,2] (Returns: List)"""
 	major_steps = [2,2,1,2,2,2]
 	return bReturn(iterate(start, major_steps), rType)
-	
-def generate_minor_scale(start, rType="list"):
+
+def generate_minor_scale(start, rType="list"): #Natural minor
 	"""Generates a minor scale using the pattern [2,1,2,2,1,2] (Returns: List)"""
 	minor_steps = [2,1,2,2,1,2]
 	return bReturn(iterate(start, minor_steps),rType)
-	
+	#To be added: Harmonic and Melodic minor scales. Patterns: [2,1,2,2,2,1,2] | [2,1,2,2,2,2,1]
+
 def generate_chromatic_scale(start, rType="list"):
 	"""Generates a chromatic scale using the pattern [1,1,1,1,1,1,1,1,1,1,1] (Returns: List)"""
 	chromatic_steps = [1,1,1,1,1,1,1,1,1,1,1]
