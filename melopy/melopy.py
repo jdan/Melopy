@@ -136,7 +136,7 @@ class Melopy:
 			
 		self.title = title.lower()
 		self.rate = 44100
-		self.volume = volume / 100.0 * 32767
+		self.volume = volume
 		self.data = []
 		
 		self.tempo = tempo
@@ -158,29 +158,44 @@ class Melopy:
 			period = 44100.0 / frequency
 			
 			if self.wave_type == 'square':
-				val = ((n % int(period) >= (int(period)/2)) * self.volume * 2) - self.volume
+				val = ((n % int(period) >= (int(period)/2)) * 2) - 1
 			elif self.wave_type == 'sawtooth':
-				val = ((n % int(period)) / period * self.volume * 2) - self.volume
+				val = ((n % int(period)) / period * 2) - 1
 			elif self.wave_type == 'triangle':
-				val = 2 * (n % int(period)) / period * self.volume
+				val = 2 * (n % int(period)) / period
 				if n % int(period) >= (int(period) / 2):
-					val = 2 * self.volume - val
-				val = 2 * val - self.volume
+					val = 2 * 1 - val
+				val = 2 * val - 1
 			else: # default to sine
-				val = self.volume * math.sin(2 * math.pi * n / period)
+				val = math.sin(2 * math.pi * n / period)
+				
+			val *= self.volume / 100.0 * 32767
 			
 			if location + n >= len(self.data):
 				self.data.append(val)
 			else:
-				self.data[location + n] += val
-				# check that we're not above the volume
-				if self.data[location + n] > self.volume:
-					self.data[location + n] = self.volume
+				current_val = self.data[location + n]
+				if current_val + val > 32767:
+					val = 32767
+				elif current_val + val < -32768:
+					val = -32768
+				else:
+					val += current_val
+					
+				self.data[location + n] = val
 					
 	def add_note(self, note, length, location='END'):
-		if note[-1] not in '0123456789':
-			note += str(self.octave)
-		self.add_wave(frequency_from_note(note), length, location)
+		if not isinstance(note, list):
+			note = [note]
+
+		if location == 'END':
+			location = len(self.data) / 44100.0
+
+		for item in note:
+			if item[-1] not in '0123456789':
+				item += str(self.octave)
+
+			self.add_wave(frequency_from_note(item), length, location)
 		
 	def add_melody(self, melody, length):
 		for note in melody:
