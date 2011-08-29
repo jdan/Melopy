@@ -4,6 +4,12 @@
 import wave, struct, random, math
 import os
 
+try:
+	from cStringIO import StringIO
+
+except ImportError:
+	from StringIO import StringIO
+
 def frequency_from_key(key):
 	return 440 * 2 ** ((key - 49) / 12.0)
 
@@ -163,13 +169,44 @@ class Melopy:
 		self.add_rest(60.0 / self.tempo * (fraction * 4))
 		
 	def render(self):
-		melopy_writer = wave.open(self.title + '.wav', 'w')
-		melopy_writer.setparams((2, 2, 44100, 0, 'NONE', 'not compressed'))
-		
-		for item in self.data:
-			packed_val = struct.pack('h', int(item))
-			melopy_writer.writeframes(packed_val)
-			melopy_writer.writeframes(packed_val)
+		"""
+		Render the calculated music to a .wav file.
 
-		melopy_writer.close()
-		
+		"""
+
+		# create a file like object in memory
+		file_obj = StringIO()
+
+		# generate the filename based on the title given when initializing
+		# the class
+		filename = '%s.wav' % self.title
+
+		melopy_writer = wave.open(file_obj, 'w')
+		melopy_writer.setparams((2, 2, 44100, 0, 'NONE', 'not compressed'))
+
+		# Cache the writeframes method location before starting the loop,
+		# and freeze the data into a faster, immutable data structure.
+		writeframes = melopy_writer.writeframes
+		frozen = tuple(self.data)
+
+		for item in frozen:
+			packed_val = pack('h', int(item))
+			writeframes(packed_val)
+			writeframes(packed_val)
+
+		# Make certain the header is written correctly
+		melopy_writer._ensure_header_written(0)
+
+		if melopy_writer._datalength != melopy_writer._datawritten:
+			melopy_writer._patchheader()
+
+		# Flush the file object and seek to the beginning.
+		file_obj.flush()
+		file_obj.seek(0)
+
+		# Now that all the work has been done, dump it to disk.
+		with open(filename, 'wb') as save:
+			save.write(file_obj.read())
+
+		file_obj.close()
+		del file_obj
