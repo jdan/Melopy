@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import wave, struct, random, math
+import wave, random, math
+from struct import pack
 import os
 
 try:
