@@ -12,9 +12,9 @@ To install:
 
     $ git clone git://github.com/prezjordan/Melopy
     $ cd Melopy
-    $ python setup.py install
+    $ sudo python setup.py install
 
-To run the tests:
+To run the tests: (we've got some errors to work out)
 
     $ python setup.py test
 
