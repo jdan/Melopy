@@ -25,3 +25,5 @@ m.add_rest(0.4)
 m.add_note('d4', 0.4)
 m.add_rest(0.1)
 m.add_note('d5', 0.8)
+
+m.render()
