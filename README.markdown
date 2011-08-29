@@ -87,8 +87,10 @@ All methods that return lists support choosing return types. The default return 
         add_wave(self, wave_type, frequency, length, location='END')
 
         # Same as add_wave, but instead of frequency, the user provides a string representing a note (ie 'C5')
+        #     If the octave is ignored, it is defaulted to 4. This can be changed by edited `self.octave`
         # Also try add_quarter_note, add_half_note, add_whole_note, add_eighth_note, add_sixteenth_note instead of specifying a length
         add_note(self, note, length, wave_type='square', location='END')
+        # You can also replace `note` with an array of notes, i.e. (['C', 'E', 'G'] or ['A4', 'C#5', 'E5']) to add chords.
 
         # Generates an array of notes given a starting note and a pattern of gaps between notes. This is better explained below
         iterate(self, start, pattern)
