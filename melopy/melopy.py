@@ -117,7 +117,7 @@ def generate_minor_triad(start,rType="list"):
 	return iterate(start, minor_triad, rType)
 
 def genScale(scale, *etc): #scale, start, type
-	"""Example of better way to do scale generation"""
+	"""Example of better way to do scale generation @NOTE: Please don't use this in production! It might be taken out at a later time..."""
 	scales = {
 		"major":generate_major_scale,
 		"minor":generate_minor_scale,
@@ -128,6 +128,8 @@ def genScale(scale, *etc): #scale, start, type
 	}
 	if scale in scales:
 		return scales[scale]([i for i in etc]) #Places each individual argument into function call
+	else:
+		return MelopyGenericError("Unknown scale!")
 
 class Melopy:
 	def __init__(self, title='sound', volume=50, tempo=120, octave=4):
@@ -185,6 +187,7 @@ class Melopy:
 				self.data[location + n] = val
 					
 	def add_note(self, note, length, location='END'):
+		"""Add a note, or if a list, add a chord."""
 		if not isinstance(note, list):
 			note = [note]
 
