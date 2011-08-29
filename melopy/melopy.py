@@ -2,29 +2,31 @@
 # -*- coding: utf-8 -*-
 
 import wave, struct, random, math
-import os
+import os, sys 
 
 class MelopyGenericError(Exception): pass
 class MelopyValueError(ValueError): pass
 
 def bReturn(output, Type):
 	"""Returns a selected output assuming input is a list"""
-	O = {} #Empty local dictionary
 	if isinstance(output, list):
 		if Type.lower() == "list":
 			return output
 		elif Type.lower() == "tuple":
 			return tuple([i for i in output])
 		elif Type.lower() == "dict":
+			O = {}
 			for i in range(len(output)):
 				O[i] = output[i]
 			return O
 		elif Type.lower() == "string":
 			return ','.join(output)
+		elif Type.lower() == "stringspace":
+			return ' '.join(output)
 		else:
 			raise MelopyGenericError("Unknown type: "+Type)
 	else:
-		MelopyGenericError("Input to bReturn is not a list! Input: "+str(output))
+		raise MelopyGenericError("Input to bReturn is not a list! Input: "+str(output))
 
 def frequency_from_key(key):
 	"""Returns the frequency of the note (key) keys from A0"""
@@ -78,7 +80,7 @@ def generate_major_scale(start, rType="list"):
 def generate_minor_scale(start, rType="list"): #Natural minor
 	"""Generates a minor scale using the pattern [2,1,2,2,1,2] (Returns: List)"""
 	minor_steps = [2,1,2,2,1,2]
-	return iterate(start, minor_steps ,rType)
+	return iterate(start, minor_steps,rType)
 	#To be added: Harmonic and Melodic minor scales. Patterns: [2,1,2,2,2,1,2] | [2,1,2,2,2,2,1]
 
 def generate_melodic_minor_scale(start, rType="list"):
@@ -116,8 +118,8 @@ def generate_minor_triad(start,rType="list"):
 	minor_triad = [3, 4]
 	return iterate(start, minor_triad, rType)
 
-def genScale(scale, *etc): #scale, start, type
-	"""Example of better way to do scale generation"""
+def genScale(scale, note, rType="list"): #scale, start, type
+	"""Example of better way to do scale generation @NOTE: Please don't use this in production! It might be taken out at a later time..."""
 	scales = {
 		"major":generate_major_scale,
 		"minor":generate_minor_scale,
@@ -127,7 +129,9 @@ def genScale(scale, *etc): #scale, start, type
 		"major_pentatonic":generate_major_pentatonic_scale
 	}
 	if scale in scales:
-		return scales[scale]([i for i in etc]) #Places each individual argument into function call
+		return scales[scale](note, rType) #Places each individual argument into function call
+	else:
+		raise MelopyGenericError("Unknown scale type:"+str(scale))
 
 class Melopy:
 	def __init__(self, title='sound', volume=50, tempo=120, octave=4):
@@ -185,6 +189,7 @@ class Melopy:
 				self.data[location + n] = val
 					
 	def add_note(self, note, length, location='END'):
+		"""Add a note, or if a list, add a chord."""
 		if not isinstance(note, list):
 			note = [note]
 
@@ -204,21 +209,27 @@ class Melopy:
 			self.add_wave(frequency_from_note(note), length)
 			
 	def add_whole_note(self, note):
+		"""Add a whole note"""
 		self.add_note(note, 60.0 / self.tempo * 4)
 		
 	def add_half_note(self, note):
+		"""Add a half note"""
 		self.add_note(note, 60.0 / self.tempo * 2)
 		
 	def add_quarter_note(self, note):
+		"""Add a quarter note"""
 		self.add_note(note, 60.0 / self.tempo)
 		
 	def add_eighth_note(self, note):
+		"""Add a eigth note"""
 		self.add_note(note, 60.0 / self.tempo / 2)
 		
 	def add_sixteenth_note(self, note):
+		"""Add a sixteenth note"""
 		self.add_note(note, 60.0 / self.tempo / 4)
 		
 	def add_fractional_note(self, note, fraction):
+		"""Add a fractional note (smaller then 1/16 notes)"""
 		self.add_note(note, 60.0 / self.tempo * (fraction * 4))
 		
 	def add_rest(self, length):
@@ -244,6 +255,7 @@ class Melopy:
 		self.add_rest(60.0 / self.tempo * (fraction * 4))
 		
 	def render(self):
+		"""Render a playable song out to a .wav file"""
 		melopy_writer = wave.open(self.title + '.wav', 'w')
 		melopy_writer.setparams((2, 2, 44100, 0, 'NONE', 'not compressed'))
 		

@@ -57,7 +57,7 @@ or:
     >>> melopy.generate_minor_triad('C5')
     ['C5', 'D#5', 'G5']
 
-All methods that return lists support choosing return types. The default return type is a list. example:
+All of the above methods (except for from_note variations) allow for choosing your return type. The default is a list, however you can get a string, dictionary, or tuple by the following method:
 
     >>> generate_minor_scale("A4","tuple")
     ('A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5')
@@ -112,3 +112,4 @@ All methods that return lists support choosing return types. The default return 
 * Add types of scales?
 * Fix scales to work properly (`d731ad5`)
 * Write to wav file bitwise? Rather than having an overhead
+* Add option to listen to files before rendering out (Render into RAM, play and then dump?)
