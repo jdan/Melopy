@@ -81,6 +81,16 @@ def generate_minor_scale(start, rType="list"): #Natural minor
 	return iterate(start, minor_steps ,rType)
 	#To be added: Harmonic and Melodic minor scales. Patterns: [2,1,2,2,2,1,2] | [2,1,2,2,2,2,1]
 
+def generate_melodic_minor_scale(start, rType="list"):
+	"""Generates a melodic minor scale using the pattern [2,1,2,2,2,2,1]"""
+	mminor_steps = [2,1,2,2,2,2,1]
+	return bReturn(iterate(start, mminor_steps),rType)
+
+def generate_harmonic_minor_scale(start, rType="list"):
+	"""Generates a harmonic minor scale using the patter [2,1,2,2,2,1,2]"""
+	hminor_steps = [2,1,2,2,2,1,2]
+	return bReturn(iterate(start, hminor_steps),rType)
+
 def generate_chromatic_scale(start, rType="list"):
 	"""Generates a chromatic scale using the pattern [1,1,1,1,1,1,1,1,1,1,1] (Returns: List)"""
 	chromatic_steps = [1,1,1,1,1,1,1,1,1,1,1]
@@ -105,6 +115,19 @@ def generate_minor_triad(start,rType="list"):
 	"""Generates a minor triad using the pattern [3,4] (Returns: List)"""
 	minor_triad = [3, 4]
 	return iterate(start, minor_triad, rType)
+
+def genScale(scale, *etc): #scale, start, type
+	"""Example of better way to do scale generation"""
+	scales = {
+		"major":generate_major_scale,
+		"minor":generate_minor_scale,
+		"melodic_minor":generate_melodic_minor_scale,
+		"harmonic_minor":generate_harmonic_minor_scale,
+		"chromatic":generate_chromatic_scale,
+		"major_pentatonic":generate_major_pentatonic_scale
+	}
+	if scale in scales:
+		return scales[scale]([i for i in etc]) #Places each individual argument into function call
 
 class Melopy:
 	def __init__(self, title='sound', volume=50, tempo=120, octave=4):
