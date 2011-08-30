@@ -24,9 +24,9 @@ def bReturn(output, Type):
 		elif Type.lower() == "stringspace":
 			return ' '.join(output)
 		else:
-			raise MelopyGenericError("Unknown type: "+Type)
+			raise MelopyGenericError("Unknown type: " + Type)
 	else:
-		raise MelopyGenericError("Input to bReturn is not a list! Input: "+str(output))
+		raise MelopyGenericError("Input to bReturn is not a list! Input: " + str(output))
 
 def frequency_from_key(key):
 	"""Returns the frequency of the note (key) keys from A0"""
@@ -58,8 +58,8 @@ def key_from_note(note):
 def note_from_key(key):
 	"""Returns a string representing a note which is (key) keys from A0"""
 	notes = ['a','a#','b','c','c#','d','d#','e','f','f#','g','g#']
-	octave = (key+8) / 12
-	note = notes[(key-1) % 12]
+	octave = (key + 8) / 12
+	note = notes[(key -1 ) % 12]
 
 	return note.upper() + str(octave)
 	
@@ -80,18 +80,18 @@ def generate_major_scale(start, rType="list"):
 def generate_minor_scale(start, rType="list"): #Natural minor
 	"""Generates a minor scale using the pattern [2,1,2,2,1,2] (Returns: List)"""
 	minor_steps = [2,1,2,2,1,2]
-	return iterate(start, minor_steps,rType)
+	return iterate(start, minor_steps, rType)
 	#To be added: Harmonic and Melodic minor scales. Patterns: [2,1,2,2,2,1,2] | [2,1,2,2,2,2,1]
 
 def generate_melodic_minor_scale(start, rType="list"):
 	"""Generates a melodic minor scale using the pattern [2,1,2,2,2,2,1]"""
 	mminor_steps = [2,1,2,2,2,2,1]
-	return bReturn(iterate(start, mminor_steps),rType)
+	return bReturn(iterate(start, mminor_steps), rType)
 
 def generate_harmonic_minor_scale(start, rType="list"):
 	"""Generates a harmonic minor scale using the patter [2,1,2,2,2,1,2]"""
 	hminor_steps = [2,1,2,2,2,1,2]
-	return bReturn(iterate(start, hminor_steps),rType)
+	return bReturn(iterate(start, hminor_steps), rType)
 
 def generate_chromatic_scale(start, rType="list"):
 	"""Generates a chromatic scale using the pattern [1,1,1,1,1,1,1,1,1,1,1] (Returns: List)"""
