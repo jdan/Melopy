@@ -57,6 +57,9 @@ def key_from_note(note):
 
 def note_from_key(key):
 	"""Returns a string representing a note which is (key) keys from A0"""
+    ## TODO: On generating scales and triad, they return 
+    ## TODO: ['C4', 'C#4', 'D#4', 'E4', 'F#4', 'G4', 'A4', 'A#4', 'C5'] instead ['C4', 'Db4', 'E4', 'F#4', 'G4', 'G#4', 'A#4', 'B4', 'C5']
+    ## TODO: In fact, they sound equal, but have different notation
 	notes = ['a','a#','b','c','c#','d','d#','e','f','f#','g','g#']
 	octave = (key + 8) / 12
 	note = notes[(key -1 ) % 12]
@@ -86,12 +89,23 @@ def generate_minor_scale(start, rType="list"): #Natural minor
 def generate_melodic_minor_scale(start, rType="list"):
 	"""Generates a melodic minor scale using the pattern [2,1,2,2,2,2,1]"""
 	mminor_steps = [2,1,2,2,2,2,1]
-	return bReturn(iterate(start, mminor_steps), rType)
+    return iterate(start, mminor_steps,rType)
 
 def generate_harmonic_minor_scale(start, rType="list"):
 	"""Generates a harmonic minor scale using the patter [2,1,2,2,2,1,2]"""
 	hminor_steps = [2,1,2,2,2,1,2]
-	return bReturn(iterate(start, hminor_steps), rType)
+    return iterate(start, hminor_steps,rType)
+
+def generate_octatonic_scale_half(start, rType="list"):
+    """Generates a octatonic scale starting with half step"""
+    octatonicScale = [1,2,1,2,1,2,1,2]    
+    return iterate(start, octatonicScale, rType)
+
+def generate_octatonic_scale_whole(start, rType="list"):
+    """Generates a octatonic scale starting with whole step"""
+    octatonicScale = [2,1,2,1,2,1,2,1]    
+    return iterate(start, minor_steps ,rType)
+    #To be added: Harmonic and Melodic minor scales. Patterns: [2,1,2,2,2,1,2] | [2,1,2,2,2,2,1]
 
 def generate_chromatic_scale(start, rType="list"):
 	"""Generates a chromatic scale using the pattern [1,1,1,1,1,1,1,1,1,1,1] (Returns: List)"""
@@ -126,7 +140,9 @@ def genScale(scale, note, rType="list"): #scale, start, type
 		"melodic_minor":generate_melodic_minor_scale,
 		"harmonic_minor":generate_harmonic_minor_scale,
 		"chromatic":generate_chromatic_scale,
-		"major_pentatonic":generate_major_pentatonic_scale
+        "major_pentatonic":generate_major_pentatonic_scale,
+        "octatonic_half":generate_octatonic_half,
+        "octatonic_whole":generate_octatonic_whole,
 	}
 	if scale in scales:
 		return scales[scale](note, rType) #Places each individual argument into function call
@@ -204,9 +220,7 @@ class Melopy:
 		
 	def add_melody(self, melody, length):
 		for note in melody:
-			if note[-1] not in '0123456789':
-				note += self.octave
-			self.add_wave(frequency_from_note(note), length)
+            self.add_note(note, length)
 			
 	def add_whole_note(self, note):
 		"""Add a whole note"""
@@ -237,7 +251,7 @@ class Melopy:
 			self.data.append(0)
 			
 	def add_whole_rest(self):
-		self.add_rest(60.0 / self.tempp * 4)
+        self.add_rest(60.0 / self.tempo * 4)
 		
 	def add_half_rest(self):
 		self.add_rest(60.0 / self.tempo * 2)
