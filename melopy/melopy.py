@@ -3,9 +3,36 @@
 
 import wave, struct, random, math
 import os, sys 
+from collections import deque
 
 class MelopyGenericError(Exception): pass
 class MelopyValueError(ValueError): pass
+
+DIATONIC_SEQUENCE = [2, 2, 1, 2, 2, 2, 1]
+# A dict of mode names mapping to steps of rotation from DIATONIC_SEQUENCE
+MODES = {
+"ionian":0,
+"dorian":1,
+"phrygian":2,
+"lydian":3,
+"mixolydian":4,
+"aeolian":5,
+"locrian":6,
+}
+
+def get_diatonic_sequence(name):
+    """Return a diatonic sequence by name."""
+    seq = deque(DIATONIC_SEQUENCE)
+    seq.rotate(-1*MODES[name.lower()]) 
+    return list(seq)
+
+
+def generate_mode(start, name, rType="list"):
+    """Generates a mode using a sequence derived from DIATONIC_SEQUENCE (Returns: List)"""
+    steps = get_diatonic_sequence(name)[:-1]   # lop off last item to conform with other generate_*() functions
+    return iterate(start, steps, rType)
+
+
 
 def bReturn(output, Type):
     """Returns a selected output assuming input is a list"""

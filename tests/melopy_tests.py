@@ -54,7 +54,45 @@ class LibraryFunctionsTests(TestCase):
         start = 'A5'
         should_be = ['A5', 'C6', 'D6', 'E6', 'G6']
         assert generate_minor_pentatonic_scale(start) == should_be
-       
+	
+
+    def test_generate_ionian_mode(self):
+        start = 'D4'
+        should_be = ['D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C#5']
+        assert generate_mode(start, 'ionian') == should_be
+
+    def test_generate_dorian_mode(self):
+        start = 'E4'
+        should_be = ['E4', 'F#4', 'G4', 'A4', 'B4', 'C#5', 'D5']
+        assert generate_mode(start, 'dorian') == should_be
+
+    def test_generate_phrygian_mode(self):
+        start = 'F#4'
+        should_be = ['F#4', 'G4', 'A4', 'B4', 'C#5', 'D5', 'E5']
+        assert generate_mode(start, 'phrygian') == should_be
+
+    def test_generate_lydian_mode(self):
+        start = 'G4'
+        should_be = ['G4', 'A4', 'B4', 'C#5', 'D5', 'E5','F#5']
+        assert generate_mode(start, 'lydian') == should_be
+
+    def test_generate_mixolydian_mode(self):
+        start = 'A4'
+        should_be = ['A4', 'B4', 'C#5', 'D5', 'E5','F#5', 'G5']
+        assert generate_mode(start, 'mixolydian') == should_be
+
+    def test_generate_aeolian_mode(self):
+        start = 'B4'
+        should_be = ['B4', 'C#5', 'D5', 'E5','F#5', 'G5', 'A5']
+        assert generate_mode(start, 'aeolian') == should_be
+
+    def test_generate_locrian_mode(self):
+        start = 'C#5'
+        should_be = ['C#5', 'D5', 'E5','F#5', 'G5', 'A5', 'B5']
+        assert generate_mode(start, 'locrian') == should_be
+    
+    
+    
     def test_generate_major_triad(self):
         start = 'A4'
         should_be = ['A4', 'C#5', 'E5']
