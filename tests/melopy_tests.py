@@ -37,7 +37,7 @@ class LibraryFunctionsTests(TestCase):
 
     def test_generate_minor_scale(self):
         start = 'C4'
-        should_be = ['C4', 'D4', 'Eb4', 'F4', 'G4', 'Ab4', 'Bb4']
+        should_be = ['C4', 'D4', 'D#4', 'F4', 'G4', 'G#4', 'A#4']
         assert generate_minor_scale(start) == should_be
 
     def test_generate_chromatic_scale(self):
@@ -62,7 +62,7 @@ class LibraryFunctionsTests(TestCase):
 
     def test_generate_minor_triad(self):
         start = 'C5'
-        should_be = ['C5', 'Eb5', 'G5']
+        should_be = ['C5', 'D#5', 'G5']
         assert generate_minor_triad(start) == should_be
 
 
