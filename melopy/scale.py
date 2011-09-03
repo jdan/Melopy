@@ -147,21 +147,21 @@ class DiatonicScale(Scale):
         """
         #: Diatonic triads 
         Tonic          = 'tonic'
-        SuperTonic     = 'supertonic'
-        Median         = 'median'
-        Submedian      = 'submedian'
+        Supertonic     = 'supertonic'
+        Mediant        = 'mediant'
         Subdominant    = 'subdominant'
         Dominant       = 'dominant'
+        Submediant     = 'submediant'
         Subtonic       = 'subtonic'
 
         #: Triads root note
         Roots = {
             Tonic          : 0 ,
-            SuperTonic     : 1 ,
-            Median         : 2 ,
+            Supertonic     : 1 ,
+            Mediant        : 2 ,
             Subdominant    : 3 ,
-            Submedian      : 4 ,
-            Dominant       : 5 ,
+            Dominant       : 4 ,
+            Submediant     : 5 ,
             Subtonic       : 6 ,
         }
 
