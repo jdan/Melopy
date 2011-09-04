@@ -2,13 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import wave, struct, random, math
-import os, sys 
+import os, sys
+
+from utility import * 
 
 class Melopy:
     def __init__(self, title='sound', volume=50, tempo=120, octave=4):
-        if not title:
-            raise MelopyValueError('Title must be non-null.')
-            
         self.title = title.lower()
         self.rate = 44100
         self.volume = volume
@@ -33,8 +32,7 @@ class Melopy:
             period = 44100.0 / frequency
             
             if self.wave_type == 'square':
-                val = ((n % int(period) >= (int(period)/2)) * 2) - 1
-				val *= 0.75
+                val = ((n % int(period) >= (int(period)/2)) * 1.5) - 0.75
             elif self.wave_type == 'sawtooth':
                 val = ((n % int(period)) / period * 2) - 1
             elif self.wave_type == 'triangle':
