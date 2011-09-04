@@ -87,7 +87,11 @@ def genScale(scale, note, rType="list"): #scale, start, type
         "chromatic":generate_chromatic_scale,
         "major_pentatonic":generate_major_pentatonic_scale
     }
+
     if scale in scales:
         return scales[scale](note, rType) #Places each individual argument into function call
     else:
         raise MelopyGenericError("Unknown scale type:"+str(scale))
+
+# Licensed under The MIT License (MIT)
+# See LICENSE file for more
