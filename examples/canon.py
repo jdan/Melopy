@@ -13,9 +13,9 @@ if __name__ == "__main__":
 
     for start in ['d4', 'a3', 'b3m', 'f#3m', 'g3', 'd3', 'g3', 'a3']:
         if start.endswith('m'):
-            scale = generate_minor_scale(start[:-1])
+            scale = minor_scale(start[:-1])
         else:
-            scale = generate_major_scale(start)
+            scale = major_scale(start)
 
         scale.insert(0, scale[0][:-1] + str(int(scale[0][-1]) - 1))
 
