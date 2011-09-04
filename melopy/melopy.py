@@ -34,6 +34,7 @@ class Melopy:
             
             if self.wave_type == 'square':
                 val = ((n % int(period) >= (int(period)/2)) * 2) - 1
+				val *= 0.75
             elif self.wave_type == 'sawtooth':
                 val = ((n % int(period)) / period * 2) - 1
             elif self.wave_type == 'triangle':
