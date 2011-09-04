@@ -32,3 +32,6 @@ def note_from_key(key):
     note = notes[(key -1 ) % 12]
 
     return note.upper() + str(octave)
+
+# Licensed under The MIT License (MIT)
+# See LICENSE file for more
