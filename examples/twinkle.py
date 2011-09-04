@@ -3,10 +3,10 @@
 
 import sys; sys.path.append('../melopy/')
 
-from melopy import Melopy
+from melopy import *
 
 if __name__ == "__main__":
-    song = Melopy('twinkle')
+    song = Melopy('twinkle', 50)
 
     song.tempo = 160
     song.wave_type = 'square'
