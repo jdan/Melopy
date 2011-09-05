@@ -130,11 +130,16 @@ class Melopy:
         melopy_writer = wave.open(self.title + '.wav', 'w')
         melopy_writer.setparams((2, 2, 44100, 0, 'NONE', 'not compressed'))
         
-        for item in self.data:
-            packed_val = struct.pack('h', int(item))
+        for i in range(len(self.data)):
+            sys.stdout.write("\r[%s] %d%%" % (('|'*int((float(i)/len(self.data)*50))).ljust(50), 100 * i / len(self.data)))
+            sys.stdout.flush()
+            packed_val = struct.pack('h', int(self.data[i]))
             melopy_writer.writeframes(packed_val)
             melopy_writer.writeframes(packed_val)
-
+            
+        sys.stdout.write("\r[%s] 100%%" % ('|'*50))
+        sys.stdout.flush()
+        sys.stdout.write("\nDone\n")
         melopy_writer.close()
         
 # Licensed under The MIT License (MIT)
