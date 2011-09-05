@@ -1,8 +1,6 @@
 class MelopyGenericError(Exception): pass
 class MelopyValueError(ValueError): pass
 
-from utility import key_from_note, note_from_key
-
 def bReturn(output, Type):
     """Returns a selected output assuming input is a list"""
     if isinstance(output, list):
