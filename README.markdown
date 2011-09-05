@@ -84,7 +84,7 @@ All of the above methods (except for from_note variations) allow for choosing yo
         __del__(self)
 
         # Adds a wave with a given frequency, length (in seconds) at a given location (in seconds)
-        add_wave(self, wave_type, frequency, length, location='END')
+        add_wave(self, frequency, length, location='END')
 
         # Same as add_wave, but instead of frequency, the user provides a string representing a note (ie 'C5')
         #     If the octave is ignored, it is defaulted to 4. This can be changed by edited `self.octave`
