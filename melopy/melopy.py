@@ -4,8 +4,8 @@
 import wave, struct, random, math
 import os, sys
 
-from scales  import *
 from utility import *
+from scales  import *
 
 class Melopy:
     def __init__(self, title='sound', volume=50, tempo=120, octave=4):
