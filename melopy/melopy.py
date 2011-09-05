@@ -4,7 +4,8 @@
 import wave, struct, random, math
 import os, sys
 
-from utility import * 
+from scales  import *
+from utility import *
 
 class Melopy:
     def __init__(self, title='sound', volume=50, tempo=120, octave=4):
@@ -16,6 +17,9 @@ class Melopy:
         self.tempo = tempo
         self.octave = octave
         self.wave_type = 'sine'
+        
+    def isithere(self):
+        print 'lol'
         
     def add_wave(self, frequency, length, location='END'):
         if location == 'END':
@@ -129,10 +133,14 @@ class Melopy:
         """Render a playable song out to a .wav file"""
         melopy_writer = wave.open(self.title + '.wav', 'w')
         melopy_writer.setparams((2, 2, 44100, 0, 'NONE', 'not compressed'))
+        p = -1
         
         for i in range(len(self.data)):
-            sys.stdout.write("\r[%s] %d%%" % (('|'*int((float(i)/len(self.data)*50))).ljust(50), 100 * i / len(self.data)))
-            sys.stdout.flush()
+            q = 100 * i / len(self.data)
+            if p != q:
+                sys.stdout.write("\r[%s] %d%%" % (('|'*int((float(i)/len(self.data)*50))).ljust(50), 100 * i / len(self.data)))
+                sys.stdout.flush()
+                p = q
             packed_val = struct.pack('h', int(self.data[i]))
             melopy_writer.writeframes(packed_val)
             melopy_writer.writeframes(packed_val)
