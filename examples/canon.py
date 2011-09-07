@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys; sys.path.append('../melopy/')
+import sys; sys.path.append(sys.path[0] + '/../melopy/')
 
 from melopy import *
 
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     m.add_rest(0.4)
     m.add_note('d4', 0.4)
     m.add_rest(0.1)
-    m.add_note('d5', 0.8)
+    m.add_note(['d4', 'a4', 'd5'], 0.8)
 
     m.render()
 
