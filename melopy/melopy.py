@@ -138,14 +138,14 @@ class Melopy:
         for i in range(len(self.data)):
             q = 100 * i / len(self.data)
             if p != q:
-                sys.stdout.write("\r[%s] %d%%" % (('|'*int((float(i)/len(self.data)*50))).ljust(50), 100 * i / len(self.data)))
+                sys.stdout.write("\r[%s] %d%%" % (('='*int((float(i)/len(self.data)*50))+'>').ljust(50), 100 * i / len(self.data)))
                 sys.stdout.flush()
                 p = q
             packed_val = struct.pack('h', int(self.data[i]))
             melopy_writer.writeframes(packed_val)
             melopy_writer.writeframes(packed_val)
             
-        sys.stdout.write("\r[%s] 100%%" % ('|'*50))
+        sys.stdout.write("\r[%s] 100%%" % ('='*50))
         sys.stdout.flush()
         sys.stdout.write("\nDone\n")
         melopy_writer.close()
