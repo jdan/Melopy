@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys; sys.path.append(sys.path[0] + '/../melopy/')
+import sys; sys.path.append(sys.path[0] + '/../')
 
 from melopy import *
 
@@ -13,9 +13,9 @@ if __name__ == "__main__":
 
     for start in ['d4', 'a3', 'b3m', 'f#3m', 'g3', 'd3', 'g3', 'a3']:
         if start.endswith('m'):
-            scale = minor_scale(start[:-1])
+            scale = DiatonicScale(start[:-1], DiatonicScale.Minor).scale
         else:
-            scale = major_scale(start)
+            scale = DiatonicScale(start, DiatonicScale.Major).scale
 
         scale.insert(0, scale[0][:-1] + str(int(scale[0][-1]) - 1))
 
