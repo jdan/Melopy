@@ -42,23 +42,24 @@ or:
     'A4'
 
     >>> # Calls iterate() with the starting note and the pattern [2,2,1,2,2,2]
-    >>> melopy.generate_major_scale('D4')
+    >>> melopy.scales.DiatonicScale('D4', DiatonicScale.Major).scale
     ['D4','E4','F#4','G4','A4','B4','C#5']
 
     >>> # Calls iterate with the starting note and the pattern [2,1,2,2,1,2]
-    >>> melopy.generate_minor_scale('C4')
+    >>> melopy.scales.DiatonicScale('C4', DiatonicScale.Minor).scale
     ['C4','D4','E4','F4','G4','A4','A#4']
 
     >>> # Calls iterate with the starting note and the pattern [4, 3]
-    >>> melopy.generate_major_triad('A4')
+    >>> melopy.scales.DiatonicScale('A4', DiatonicScale.Major).get_triad(DiatonicScale.Triad.Tonic)
     ['A4', 'C#5', 'E5']
 
     >>> # Calls iterate with the starting note and the pattern [3, 4]
-    >>> melopy.generate_minor_triad('C5')
+    >>> melopy.scales.DiatonicScale('C5', DiatonicScale.Minor).get_triad(DiatonicScale.Triad.Tonic)
     ['C5', 'D#5', 'G5']
 
 All of the above methods (except for from_note variations) allow for choosing your return type. The default is a list, however you can get a string, dictionary, or tuple by the following method:
 
+    {1}
     >>> generate_minor_scale("A4","tuple")
     ('A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5')
     >>> generate_minor_scale("A4","dict")
@@ -113,3 +114,4 @@ All of the above methods (except for from_note variations) allow for choosing yo
 * Fix scales to work properly (`d731ad5`)
 * Write to wav file bitwise? Rather than having an overhead
 * Add option to listen to files before rendering out (Render into RAM, play and then dump?)
+* Scale.scale is a list.... need to add get_scale(rType) (see {1} in this document)

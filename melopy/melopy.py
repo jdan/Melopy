@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import absolute_import
 import wave, struct, random, math
 import os, sys
 
-from utility import *
-from scales  import *
+from melopy.utility import *
+from melopy.scales  import *
 
 class Melopy:
     def __init__(self, title='sound', volume=50, tempo=120, octave=4):
@@ -79,9 +80,7 @@ class Melopy:
         
     def add_melody(self, melody, length):
         for note in melody:
-            if note[-1] not in '0123456789':
-                note += self.octave
-            self.add_wave(frequency_from_note(note), length)
+            self.add_note(note, length)
             
     def add_whole_note(self, note):
         """Add a whole note"""
@@ -112,7 +111,7 @@ class Melopy:
             self.data.append(0)
             
     def add_whole_rest(self):
-        self.add_rest(60.0 / self.tempp * 4)
+        self.add_rest(60.0 / self.tempo * 4)
         
     def add_half_rest(self):
         self.add_rest(60.0 / self.tempo * 2)
