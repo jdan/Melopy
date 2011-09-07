@@ -33,67 +33,303 @@ def iterate(start, pattern, rType="list"):
     ret = map(note_from_key, ret)
     return bReturn(ret, rType)
     
-def major_scale(start, rType="list"):
-    """Generates a major scale using the pattern [2,2,1,2,2,2] (Returns: List)"""
-    major_steps = [2,2,1,2,2,2]
-    return iterate(start, major_steps, rType)
+# TODO move Exceptions into a file 'melopy.exception'
+class UnknownScale(Exception):
+    """
+    Exception class for unknown scales
+    """
+    def __init__(self, unknownScale, scaleClass) :
+        """
+        Constructor.
 
-def minor_scale(start, rType="list"): #Natural minor
-    """Generates a minor scale using the pattern [2,1,2,2,1,2] (Returns: List)"""
-    minor_steps = [2,1,2,2,1,2]
-    return iterate(start, minor_steps, rType)
-    #To be added: Harmonic and Melodic minor scales. Patterns: [2,1,2,2,2,1,2] | [2,1,2,2,2,2,1]
+        @param unknownScale: Name of unknown scale
+        @type unknownScale: str
+        """
+        self.err = 'Given scale "{}" is unknown. Known scales are:\n{}\n'.format(
+                    unknownScale, 
+                    ' '.join(scaleClass.ScaleIntervals.keys()))
 
-def melodic_minor_scale(start, rType="list"):
-    """Generates a melodic minor scale using the pattern [2,1,2,2,2,2,1]"""
-    mminor_steps = [2,1,2,2,2,2,1]
-    return iterate(start, mminor_steps, rType)
+    def __str__(self):
+        return self.err
 
-def harmonic_minor_scale(start, rType="list"):
-    """Generates a harmonic minor scale using the patter [2,1,2,2,2,1,2]"""
-    hminor_steps = [2,1,2,2,2,1,2]
-    return iterate(start, hminor_steps, rType)
 
-def chromatic_scale(start, rType="list"):
-    """Generates a chromatic scale using the pattern [1,1,1,1,1,1,1,1,1,1,1] (Returns: List)"""
-    chromatic_steps = [1,1,1,1,1,1,1,1,1,1,1]
-    return iterate(start, chromatic_steps, rType)
+class UnknownTriad(Exception):
+    """
+    Exception class for unknown triads
+    """
+    def __init__(self, unknownTriad) :
+        """
+        Constructor.
 
-def major_pentatonic_scale(start, rType="list"):
-    """Generates a major pentatonic scale using the pattern [2,2,3,2] (Returns: List)"""
-    major_pentatonic_steps = [2,2,3,2]
-    return iterate(start, major_pentatonic_steps, rType)
+        @param unknownTriad: Name of unknown scale
+        @type unknownTriad: str
+        """
+        self.err = 'Given triad "{}" is unknown. Known triads are:\n{}\n'.format(
+                    unknownTriad, 
+                    ' '.join(DiatonicScale.Triad.Roots.keys()))
 
-def minor_pentatonic_scale(start, rType="list"):
-    """Generates a minor pentatonic scale using the pattern [3,2,2,3] (Returns: List)"""
-    minor_pentatonic_steps = [3,2,2,3]
-    return iterate(start, minor_pentatonic_steps, rType)
+    def __str__(self):
+        return self.err
 
-def major_triad(start,rType="list"):
-    """Generates a major triad using the pattern [4,3] (Returns: List)"""
-    major_triad = [4, 3]
-    return iterate(start, major_triad, rType)
 
-def minor_triad(start,rType="list"):
-    """Generates a minor triad using the pattern [3,4] (Returns: List)"""
-    minor_triad = [3, 4]
-    return iterate(start, minor_triad, rType)
 
-def genScale(scale, note, rType="list"): #scale, start, type
-    """Example of better way to do scale generation @NOTE: Please don't use this in production! It might be taken out at a later time..."""
-    scales = {
-        "major":major_scale,
-        "minor":minor_scale,
-        "melodic_minor":melodic_minor_scale,
-        "harmonic_minor":harmonic_minor_scale,
-        "chromatic":chromatic_scale,
-        "major_pentatonic":major_pentatonic_scale
+class Scale(object):
+    """
+    Scale will be used to obtain information about those scale... e. g.:
+        
+        - provide special information for different scales
+        - get triad as iterable or chord (tonic, subdominant, dominant) [only in diatonic]
+        - get parallel moll
+        - iterate over scale (__iter__)
+    """
+
+    def __init__(self, root, scaleIntervals):
+        """
+        Constructor.
+
+        @param root: root note of scale
+        @param scaleIntervals: list contains intervals to build scale from given root note.
+        """
+        #: List representation of scale
+        self.scale = iterate(root, scaleIntervals, "list")
+        #: Octave of root ==> octave of scale
+        self.octave = int(self.scale[0][-1])
+
+#       self.root = root
+#       self.rootKey = key_from_note(root)
+#       self.scaleIntervals = ScaleIntervals[scale]
+
+    def __str__(self):
+        return '-'.join(self.scale)
+
+    def __iter__(self):
+        self.scale
+
+#   @property
+#   def scale(self):
+#       """
+#       @return: Scale over one octave
+#       @rtype: list
+#       """
+#       return [self.root] + [note_from_key(rootKey + interval) for interval in self.scaleIntervals]
+
+    def get_note(self, noteIndex):
+        """
+        Returns note at given index in scale.
+
+        e.g.::
+            diatonic c4 major:
+
+            ... a3 b3 c4 d4 e4 f4 g4 a4 b4 c5 d5 e5 ...
+                -2 -1 |0  1  2  3  4  5  6| 7  8  9
+                        
+
+        @return: Note in Scale
+        @rtype: str
+        """
+        octave = self.octave + noteIndex / len(self.scale)
+        
+        # TODO Exception class?
+        assert octave >= 0, 'This note does not exist!'
+
+        #           repersenting note in scale        'F#5' -> 'F#'
+        #      .----------------+--------------------..-+-.      
+        note = self.scale[noteIndex % len(self.scale)][:-1] + str(octave)
+
+        return note
+
+    def get_chord(self, noteIndices):
+        """
+        Returns chord.
+
+        e.g.::
+            get chord Cmaj 1-3-5:
+                c4maj.get_chord([0, 2, 4]) --> ['C4', 'E4', 'G4']
+        """
+        chordRootNoteIndex = noteIndices[0]
+        chordRootNote = self.get_note(chordRootNoteIndex)
+        chord = [chordRootNote] + [self.get_note(chordRootNoteIndex + i) for i in noteIndices[1:]]
+
+        return chord
+       
+
+class DiatonicScale(Scale):
+    """
+    DiatonicScale.
+    """
+
+    #: Diatonic scale types
+    Minor = 'minor'
+    Major = 'major'
+    
+    #: Scale intervals
+    ScaleIntervals = {
+        Major       : (2,2,1,2,2,2)     ,   
+        Minor       : (2,1,2,2,1,2)     ,
     }
 
-    if scale in scales:
-        return scales[scale](note, rType) #Places each individual argument into function call
-    else:
-        raise MelopyGenericError("Unknown scale type:"+str(scale))
+    class Triad(object):
+        """
+        Defines Triad for this class.
+        """
+        #: Diatonic triads 
+        Tonic          = 'tonic'
+        Supertonic     = 'supertonic'
+        Mediant        = 'mediant'
+        Subdominant    = 'subdominant'
+        Dominant       = 'dominant'
+        Submediant     = 'submediant'
+        Subtonic       = 'subtonic'
+
+        #: Triads root note
+        Roots = {
+            Tonic          : 0 ,
+            Supertonic     : 1 ,
+            Mediant        : 2 ,
+            Subdominant    : 3 ,
+            Dominant       : 4 ,
+            Submediant     : 5 ,
+            Subtonic       : 6 ,
+        }
+
+
+    def __init__(self, root, scale):
+        """
+        Constructor.
+
+        @param root: Root note.
+        @param scale: Type of Diatonic scale
+        """
+        if self.ScaleIntervals.has_key(scale):
+            Scale.__init__(self, root, self.ScaleIntervals[scale])
+        else:
+            raise UnknownScale(scale, self)
+
+    def get_triad(self, triad, rType="list"):
+        """
+        Getter for scales triads.
+
+        @param triad: Name of triad
+        @type type: str
+
+        @param rType: Name of iterable type
+        @type rType: str
+
+        @return: Sequence of requested triad of current scale
+        @rtype: depends on rType
+        """
+        
+        if not self.Triad.Roots.has_key(triad):
+            raise UnknownTriad(triad)
+
+        return self.get_chord((self.Triad.Roots[triad], 2, 4))
+
+
+class OctatonicScale(Scale):
+    """
+    Octatonic
+    """
+
+    Half   = 'half'
+    Whole  = 'whole'
+    
+    ScaleIntervals = {
+        Half   : (1,2,1,2,1,2,1,2) ,
+        Whole  : (2,1,2,1,2,1,2,1)
+    }
+
+    def __init__(self, root, scale):
+        """
+        Constructor.
+        """
+        if self.ScaleIntervals.has_key(scale):
+            Scale.__init__(self, root, self.ScaleIntervals[scale])
+        else:
+            raise UnknownScale(scale, self)
+
+class MelodicScale(Scale):
+    """
+    Melodic.
+    """
+
+    Major = 'major'
+    Minor = 'minor'
+    
+    ScaleIntervals = {
+        Major   : (2,2,1,2,1,2) ,
+        Minor   : (2,1,2,2,2,2)
+    }
+    
+    def __init__(self, root, scale):
+        """
+        Constructor.
+        """
+        if self.ScaleIntervals.has_key(scale):
+            Scale.__init__(self, root, self.ScaleIntervals[scale])
+        else:
+            raise UnknownScale(scale, self)
+
+
+
+class HarmonicScale(Scale):
+    """
+    Harmonic.
+    """
+
+    Major   = 'major'
+    Minor   = 'minor'
+
+    ScaleIntervals = {
+        Major   : (2,2,1,2,1,3) ,
+        Minor   : (2,1,2,2,1,3)
+    }
+    
+    def __init__(self, root, scale):
+        """
+        Constructor.
+        """
+        if self.ScaleIntervals.has_key(scale):
+            Scale.__init__(self, root, self.ScaleIntervals[scale])
+        else:
+            raise UnknownScale(scale, self)
+
+
+class PentatonicScale(Scale):
+    """
+    Pentatonic.
+    """
+    Major = 'major'
+    Minor = 'minor'
+
+
+    #: Dictionary, which contains intervals for previously defined scale names.
+    #: Building scales by using this intervals.
+    ScaleIntervals = {
+        Major : (2,2,3,2)         ,
+        Minor : (3,2,2,3)         ,
+    }
+
+    def __init__(self, root, scale):
+        """
+        Constructor.
+        """
+        if self.ScaleIntervals.has_key(scale):
+            Scale.__init__(self, root, self.ScaleIntervals[scale])
+        else:
+            raise UnknownScale(scale, self)
+
+
+class ChromaticScale(Scale):
+    """
+    Chromatic.
+    """
+
+    def __init__(self, root):
+        """
+        Constructor.
+        """
+        Scale.__init__(self, root, (1,1,1,1,1,1,1,1,1,1,1)) 
+
 
 # Licensed under The MIT License (MIT)
 # See LICENSE file for more
