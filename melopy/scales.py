@@ -2,6 +2,7 @@ class MelopyGenericError(Exception): pass
 class MelopyValueError(ValueError): pass
 
 from utility import key_from_note, note_from_key
+from patternConstructor import *
 
 def bReturn(output, Type):
     """Returns a selected output assuming input is a list"""
@@ -33,51 +34,111 @@ def iterate(start, pattern, rType="list"):
     ret = map(note_from_key, ret)
     return bReturn(ret, rType)
     
-def major_scale(start, rType="list"):
-    """Generates a major scale using the pattern [2,2,1,2,2,2] (Returns: List)"""
-    major_steps = [2,2,1,2,2,2]
-    return iterate(start, major_steps, rType)
+def major_scale(start):
+    """generates a major scale in any key using correct spelling - build major scale pattern"""
+    major_pattern = [0,2,2,1,2,2,2,1]
+    
+    """start by generating a scale of all natural notes starting at our start note"""
+    natural_scale = get_base_pattern(start, [0,1,2,3,4,5,6,7])
+
+    """use pattern builder to assign the correct sharps and flats based on the step pattern and note pattern"""
+    return build_pattern(start, natural_scale, major_pattern)
 
 def minor_scale(start, rType="list"): #Natural minor
-    """Generates a minor scale using the pattern [2,1,2,2,1,2] (Returns: List)"""
-    minor_steps = [2,1,2,2,1,2]
-    return iterate(start, minor_steps, rType)
-    #To be added: Harmonic and Melodic minor scales. Patterns: [2,1,2,2,2,1,2] | [2,1,2,2,2,2,1]
+    """Generates a minor scale in any key using correct spelling - build minor scale pattern"""
+    minor_pattern = [0,2,1,2,2,1,2,2]
+
+    """start by generating a scale of all natual notes starting at our start note"""
+    natural_scale = get_base_pattern(start, [0,1,2,3,4,5,6,7])
+
+    """use pattern builder to assign the correct sharps and flats based on the step pattern and note pattern"""
+    return build_pattern(start, natural_scale, minor_pattern)
 
 def melodic_minor_scale(start, rType="list"):
-    """Generates a melodic minor scale using the pattern [2,1,2,2,2,2,1]"""
-    mminor_steps = [2,1,2,2,2,2,1]
-    return iterate(start, mminor_steps, rType)
+    """Generates a melodic minor scale in any key with correct spelling"""
+    melodic_pattern = [0,2,1,2,2,2,2,1]
+
+    """start by generating a scale of all natural notes starting at our start note"""
+    natural_scale = get_base_pattern(start, [0,1,2,3,4,5,6,7])
+
+    """use pattern builder to assign the correct sharps and flats based on step pattern and note pattern"""
+    return build_pattern(start, natural_scale, melodic_pattern)
+
 
 def harmonic_minor_scale(start, rType="list"):
-    """Generates a harmonic minor scale using the patter [2,1,2,2,2,1,2]"""
-    hminor_steps = [2,1,2,2,2,1,2]
-    return iterate(start, hminor_steps, rType)
+    """Generates a harmonic minor scale in any key with correct spelling"""
+    harmonic_pattern = [0,2,1,2,2,1,3,1]
+
+    """start by generating a scale of all natural notes starting at our start note"""
+    natural_scale = get_base_pattern(start, [0,1,2,3,4,5,6,7])
+
+    """use pattern builder to assign the correct sharps and flats based on step pattern and note pattern"""
+    return build_pattern(start, natural_scale, harmonic_pattern)
 
 def chromatic_scale(start, rType="list"):
     """Generates a chromatic scale using the pattern [1,1,1,1,1,1,1,1,1,1,1] (Returns: List)"""
     chromatic_steps = [1,1,1,1,1,1,1,1,1,1,1]
     return iterate(start, chromatic_steps, rType)
 
-def major_pentatonic_scale(start, rType="list"):
-    """Generates a major pentatonic scale using the pattern [2,2,3,2] (Returns: List)"""
-    major_pentatonic_steps = [2,2,3,2]
-    return iterate(start, major_pentatonic_steps, rType)
+def major_pentatonic_scale(start):
+    """Generates a major pentatonic scale in any key with correct spelling"""
+    pent_pattern = [0,2,2,3,2]
 
-def minor_pentatonic_scale(start, rType="list"):
-    """Generates a minor pentatonic scale using the pattern [3,2,2,3] (Returns: List)"""
-    minor_pentatonic_steps = [3,2,2,3]
-    return iterate(start, minor_pentatonic_steps, rType)
+    """start by generating a scale of all natural notes starting at our start note"""
+    natural_scale = get_base_pattern(start, [0,1,2,4,5])
 
-def major_triad(start,rType="list"):
-    """Generates a major triad using the pattern [4,3] (Returns: List)"""
-    major_triad = [4, 3]
-    return iterate(start, major_triad, rType)
+    """use pattern builder to assign the correct sharps and flats based on th step pattern and note pattern"""
+    return build_pattern(start, natural_scale, pent_pattern)
 
-def minor_triad(start,rType="list"):
-    """Generates a minor triad using the pattern [3,4] (Returns: List)"""
-    minor_triad = [3, 4]
-    return iterate(start, minor_triad, rType)
+def minor_pentatonic_scale(start):
+    """Generates a minor pentatonic scale in any key with correct spelling"""
+    pent_pattern = [0,3,2,2,3]
+
+    """start by generating a scale of all natural notes starting at our start note"""
+    natural_scale = get_base_pattern(start, [0,2,3,4,6])
+
+    """use pattern builder to assign the correct sharps and flats based on the step pattern and note pattern"""
+    return build_pattern(start, natural_scale, pent_pattern)
+
+def major_triad(start):
+    """generates a major triad in any key using correct spelling"""
+    major_pattern = [0,4,3]
+
+    """start by generating a triad of natural notes from our starting note"""
+    natural_triad = get_base_pattern(start, [0,2,4])
+
+    """use pattern builder to assign the correct sharps and flats based on the step pattern and note pattern"""
+    return build_pattern(start, natural_triad, major_pattern)
+
+def minor_triad(start):
+    """generates a minor triad in any key with correct spelling"""
+    minor_pattern = [0,3,4]
+
+    """start by generating a triad of natural notes from our start note"""
+    natural_triad = get_base_pattern(start, [0,2,4])
+
+    """use pattern builder to assign the correct sharps and flats based on the step pattern and note pattern"""
+    return build_pattern(start, natural_triad, minor_pattern)
+
+def diminished_triad(start):
+    """generates a diminished triad in any key with correct spelling"""
+    diminished_pattern = [0,3,3]
+
+    """start by generating a triad of natural notes from our start note"""
+    natural_triad = get_base_pattern(start, [0,2,4])
+
+    """use pattern builder to assign the correct sharps and flats based on the step pattern and note pattern"""
+    return build_pattern(start, natural_triad, diminished_pattern)
+
+def augmented_triad(start):
+    """generates an augmented triad in any key with correct spelling"""
+    augmented_pattern = [0,4,4]
+
+    """start by generating a triad of natural notes from our start note"""
+    natural_triad = get_base_pattern(start, [0,2,4])
+
+    """use pattern builder to assign the correct sharps and flats based on the step pattern and note pattern"""
+    return build_pattern(start, natural_triad, augmented_pattern)
 
 def genScale(scale, note, rType="list"): #scale, start, type
     """Example of better way to do scale generation @NOTE: Please don't use this in production! It might be taken out at a later time..."""
