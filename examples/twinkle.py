@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys; sys.path.append('../melopy/')
+import sys; sys.path.append(sys.path[0] + '/../melopy/')
 
 from melopy import *
 
