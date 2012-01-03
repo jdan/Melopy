@@ -11,8 +11,6 @@ For an example: check out canon.py
 To install:
 
     $ git clone git://github.com/prezjordan/Melopy
-    $ cd Melopy
-    $ sudo python setup.py install
 
 To run the tests: (we've got some errors to work out)
 
@@ -23,48 +21,79 @@ or:
     $ pip install -r requirements.txt
     $ nosetests
 
+## Organization
 
-## Library methods
-    >>> # Returns the frequency of the note (key) keys from A0
-    >>> melopy.frequency_from_key(49)
-    440
+Melopy is broken down into 3 subcategories - `melopy`, `scales`, and `utility`.
 
-    >>> # Returns the frequency of a note represented by a string
-    >>> melopy.frequency_from_note('A4')
-    440
+* `melopy.py` contains the Melopy class 
+    * this is used for creating a Melopy and adding notes to it, rendering, etc
+* `scales.py` contains methods for generating scales
+    * for instance, if you want to store the C major scale in an array
+* `utility.py` contains methods for finding frequencies of notes, etc
 
-    >>> # Returns the key number (keys from A0) from a note represented by a string
-    >>> melopy.key_from_note('A4')
-    49
+## melopy.py
 
-    >>> # Returns a string representing a note which is (key) keys from A0
-    >>> melopy.note_from_key(49)
-    'A4'
+```
+>>> from melopy import Melopy
+>>> m = Melopy('mysong')
+>>> m.add_quarter_note('A4')
+>>> m.add_quarter_note('C#5')
+>>> m.add_quarter_note('E5')
+>>> m.render()
+[==================================================] 100%
+Done
+```
 
-    >>> # Calls iterate() with the starting note and the pattern [2,2,1,2,2,2]
-    >>> melopy.generate_major_scale('D4')
-    ['D4','E4','F#4','G4','A4','B4','C#5']
+## scales.py
 
-    >>> # Calls iterate with the starting note and the pattern [2,1,2,2,1,2]
-    >>> melopy.generate_minor_scale('C4')
-    ['C4','D4','E4','F4','G4','A4','A#4']
+* chromatic_scale    
+* harmonic_minor_scale    
+* major_pentatonic_scale    
+* major_scale
+* minor_scale
+* major_triad
+* minor_triad    
+* melodic_minor_scale    
+* minor_pentatonic_scale     
 
-    >>> # Calls iterate with the starting note and the pattern [4, 3]
-    >>> melopy.generate_major_triad('A4')
-    ['A4', 'C#5', 'E5']
+```
+>>> from melopy.scales import *
+>>> major_scale('C4')
+['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4']
+>>> major_scale('C4','dict')
+{0: 'C4', 1: 'D4', 2: 'E4', 3: 'F4', 4: 'G4', 5: 'A4', 6: 'B4'}
+>>> major_scale('C4','tuple')
+('C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4')
+>>> minor_scale('D#5')  # has some bugs
+['D#5', 'F5', 'F#5', 'G#5', 'A#5', 'B5', 'C#6']
+>>> major_triad('A4')
+['A4', 'C#5', 'E5']
+>>> major_triad('A4', 'tuple')
+('A4', 'C#5', 'E5')
+```
 
-    >>> # Calls iterate with the starting note and the pattern [3, 4]
-    >>> melopy.generate_minor_triad('C5')
-    ['C5', 'D#5', 'G5']
+## utility.py
 
-All of the above methods (except for from_note variations) allow for choosing your return type. The default is a list, however you can get a string, dictionary, or tuple by the following method:
+* frequency_from_key    
+* frequency_from_note    
+* key_from_note    
+* note_from_key
 
-    >>> generate_minor_scale("A4","tuple")
-    ('A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5')
-    >>> generate_minor_scale("A4","dict")
-    {0: 'A4', 1: 'B4', 2: 'C5', 3: 'D5', 4: 'E5', 5: 'F5', 6: 'G5'}
-
-
+```
+>>> from melopy.utility import *
+>>> frequency_from_key(49)
+440.0
+>>> frequency_from_note('A4')
+440.0
+>>> frequency_from_note('C5')
+523.2511306011972
+>>> key_from_note('Bb5')
+62
+>>> note_from_key(65)
+'C#6'
+>>> note_from_key(304) # even something stupid
+'C26'
+```
 
 ## Melopy Class
 
