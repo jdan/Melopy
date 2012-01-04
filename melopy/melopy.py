@@ -126,7 +126,7 @@ class Melopy:
     def add_fractional_rest(self, fraction):
         self.add_rest(60.0 / self.tempo * (fraction * 4))
         
-    def parse(self, string):
+    def parse(self, string, location='END'):
         cf = 0.25                    # start with a quarter note, change accordingly
         string = '\n'.join(string.split('||'))
 
@@ -150,7 +150,7 @@ class Melopy:
                         #    a sharp or flat, make sure we include it
                         frag += melody[i+1]
                     
-                    self.add_fractional_note(frag, cf)
+                    self.add_fractional_note(frag, cf, location)
                 elif frag in '#b':
                     continue # we deal with this above
                 elif frag == '(' or frag == ']':
@@ -160,12 +160,12 @@ class Melopy:
                 elif frag == '-':
                     self.add_fractional_rest(cf)
                         
-    def parsefile(self, filename):
+    def parsefile(self, filename, location='END'):
         fr = open(filename, 'r')
         s = fr.read()
         fr.close()
         
-        self.parse(s)
+        self.parse(s, location)
         
     def render(self):
         """Render a playable song out to a .wav file"""
