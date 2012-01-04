@@ -82,23 +82,23 @@ class Melopy:
             
     def add_whole_note(self, note):
         """Add a whole note"""
-        self.add_note(note, 60.0 / self.tempo * 4)
+        self.add_fractional_note(note, 1.0)
         
     def add_half_note(self, note):
         """Add a half note"""
-        self.add_note(note, 60.0 / self.tempo * 2)
+        self.add_fractional_note(note, 1.0 / 2)
         
     def add_quarter_note(self, note):
         """Add a quarter note"""
-        self.add_note(note, 60.0 / self.tempo)
+        self.add_fractional_note(note, 1.0 / 4)
         
     def add_eighth_note(self, note):
         """Add a eigth note"""
-        self.add_note(note, 60.0 / self.tempo / 2)
+        self.add_fractional_note(note, 1.0 / 8)
         
     def add_sixteenth_note(self, note):
         """Add a sixteenth note"""
-        self.add_note(note, 60.0 / self.tempo / 4)
+        self.add_fractional_note(note, 1.0 / 16)
         
     def add_fractional_note(self, note, fraction):
         """Add a fractional note (smaller then 1/16 notes)"""
@@ -109,19 +109,19 @@ class Melopy:
             self.data.append(0)
             
     def add_whole_rest(self):
-        self.add_rest(60.0 / self.tempp * 4)
+        self.add_fractional_rest(1.0)
         
     def add_half_rest(self):
-        self.add_rest(60.0 / self.tempo * 2)
+        self.add_fractional_rest(1.0 / 2)
             
     def add_quarter_rest(self):
-        self.add_rest(60.0 / self.tempo)
+        self.add_fractional_rest(1.0 / 4)
         
     def add_eighth_rest(self):
-        self.add_rest(60.0 / self.tempo / 2)
+        self.add_fractional_rest(1.0 / 8)
         
     def add_sixteenth_rest(self):
-        self.add_rest(60.0 / self.tempo / 4)
+        self.add_fractional_rest(1.0 / 16)
         
     def add_fractional_rest(self, fraction):
         self.add_rest(60.0 / self.tempo * (fraction * 4))
