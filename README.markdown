@@ -4,15 +4,15 @@
 #### by Jordan Scales (http://jordanscales.com) and friends
 #### on Github: http://github.com/prezjordan/Melopy
 
-For an example: check out canon.py 
-
-    $ python examples/canon.py
-
 To install:
 
     $ git clone git://github.com/prezjordan/Melopy
     $ cd Melopy
     $ python setup.py install
+    
+For an example: check out canon.py 
+
+    $ python examples/canon.py
 
 To run the tests: (we've got some errors to work out)
 
