@@ -2,15 +2,15 @@ def frequency_from_key(key):
     """Returns the frequency of the note (key) keys from A0"""
     return 440 * 2 ** ((key - 49) / 12.0)
 
-def frequency_from_note(note):
+def frequency_from_note(note, default=4):
     """Returns the frequency of a note represented by a string"""
-    return frequency_from_key(key_from_note(note))
+    return frequency_from_key(key_from_note(note, default))
 
-def key_from_note(note):
+def key_from_note(note, default=4):
     """Returns the key number (keys from A0) from a note represented by a string"""
     indices = { 'C':0, 'D':2, 'E':4, 'F':5, 'G':7, 'A':9, 'B':11 }
 
-    octave = 4
+    octave = default
 
     if note[-1] in '012345678':
         octave = int(note[-1])
