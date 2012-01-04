@@ -18,9 +18,6 @@ class Melopy:
         self.octave = octave
         self.wave_type = 'sine'
         
-    def isithere(self):
-        print 'lol'
-        
     def add_wave(self, frequency, length, location='END'):
         if location == 'END':
             location = len(self.data)
