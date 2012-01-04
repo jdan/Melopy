@@ -8,7 +8,7 @@ from utility import *
 from scales  import *
 
 class Melopy:
-    def __init__(self, title='sound', volume=40, tempo=120, octave=4):
+    def __init__(self, title='sound', volume=20, tempo=120, octave=4):
         self.title = title.lower()
         self.rate = 44100
         self.volume = volume
@@ -151,6 +151,9 @@ class Melopy:
                         frag += melody[i+1]
                     
                     self.add_fractional_note(frag, cf, location)
+                    if location != 'END':
+                        location += (60.0 / self.tempo * (cf * 4)) * 44100
+                        
                 elif frag in '#b':
                     continue # we deal with this above
                 elif frag == '(' or frag == ']':
@@ -159,6 +162,8 @@ class Melopy:
                     cf *= 2
                 elif frag == '-':
                     self.add_fractional_rest(cf)
+                    if location != 'END':
+                        location += (60.0 / self.tempo * (cf * 4)) * 44100
                         
     def parsefile(self, filename, location='END'):
         fr = open(filename, 'r')
