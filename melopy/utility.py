@@ -25,13 +25,16 @@ def key_from_note(note, default=4):
 
     return key - 8;
 
-def note_from_key(key):
+def note_from_key(key, octaves=True):
     """Returns a string representing a note which is (key) keys from A0"""
     notes = ['a','a#','b','c','c#','d','d#','e','f','f#','g','g#']
     octave = (key + 8) / 12
-    note = notes[(key -1 ) % 12]
+    note = notes[(key - 1) % 12]
 
-    return note.upper() + str(octave)
+    if octaves:
+        return note.upper() + str(octave)
+    else:
+        return note.upper()
 
 # Licensed under The MIT License (MIT)
 # See LICENSE file for more
