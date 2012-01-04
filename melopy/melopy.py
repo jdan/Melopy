@@ -137,7 +137,7 @@ class Melopy:
                 self.octave = octave              # set the octave
 
                 for i, frag in enumerate(melody):  # divide melody into fragments
-                    if frag == ' ' or frag = '\t':
+                    if frag == ' ' or frag == '\t':
                         continue # ignore whitespace
                     elif frag in 'ABCDEFG':
                         if (i+1 < len(melody)) and (melody[i+1] in '#b'):
