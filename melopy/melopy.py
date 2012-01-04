@@ -72,7 +72,7 @@ class Melopy:
             if item[-1] not in '0123456789':
                 item += str(self.octave)
 
-            self.add_wave(frequency_from_note(item), length, location)
+            self.add_wave(frequency_from_note(item, self.octave), length, location)
         
     def add_melody(self, melody, length):
         for note in melody:
