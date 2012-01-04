@@ -80,29 +80,29 @@ class Melopy:
                 note += self.octave
             self.add_wave(frequency_from_note(note), length)
             
-    def add_whole_note(self, note):
+    def add_whole_note(self, note, location='END'):
         """Add a whole note"""
-        self.add_fractional_note(note, 1.0)
+        self.add_fractional_note(note, 1.0, location)
         
-    def add_half_note(self, note):
+    def add_half_note(self, note, location='END'):
         """Add a half note"""
-        self.add_fractional_note(note, 1.0 / 2)
+        self.add_fractional_note(note, 1.0 / 2, location)
         
-    def add_quarter_note(self, note):
+    def add_quarter_note(self, note, location='END'):
         """Add a quarter note"""
-        self.add_fractional_note(note, 1.0 / 4)
+        self.add_fractional_note(note, 1.0 / 4, location)
         
-    def add_eighth_note(self, note):
+    def add_eighth_note(self, note, location='END'):
         """Add a eigth note"""
-        self.add_fractional_note(note, 1.0 / 8)
+        self.add_fractional_note(note, 1.0 / 8, location)
         
-    def add_sixteenth_note(self, note):
+    def add_sixteenth_note(self, note, location='END'):
         """Add a sixteenth note"""
-        self.add_fractional_note(note, 1.0 / 16)
+        self.add_fractional_note(note, 1.0 / 16, location)
         
-    def add_fractional_note(self, note, fraction):
+    def add_fractional_note(self, note, fraction, location='END'):
         """Add a fractional note (smaller then 1/16 notes)"""
-        self.add_note(note, 60.0 / self.tempo * (fraction * 4))
+        self.add_note(note, 60.0 / self.tempo * (fraction * 4), location)
         
     def add_rest(self, length):
         for i in range(int(self.rate * length)):
