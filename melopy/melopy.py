@@ -152,7 +152,7 @@ class Melopy:
                     
                     self.add_fractional_note(frag, cf, location)
                     if location != 'END':
-                        location += (60.0 / self.tempo * (cf * 4)) * 44100
+                        location += (60.0 / self.tempo * (cf * 4))
                         
                 elif frag in '#b':
                     continue # we deal with this above
@@ -163,7 +163,7 @@ class Melopy:
                 elif frag == '-':
                     self.add_fractional_rest(cf)
                     if location != 'END':
-                        location += (60.0 / self.tempo * (cf * 4)) * 44100
+                        location += (60.0 / self.tempo * (cf * 4))
                         
     def parsefile(self, filename, location='END'):
         fr = open(filename, 'r')
