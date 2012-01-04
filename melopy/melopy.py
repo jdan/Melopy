@@ -8,7 +8,7 @@ from utility import *
 from scales  import *
 
 class Melopy:
-    def __init__(self, title='sound', volume=50, tempo=120, octave=4):
+    def __init__(self, title='sound', volume=40, tempo=120, octave=4):
         self.title = title.lower()
         self.rate = 44100
         self.volume = volume
@@ -131,13 +131,17 @@ class Melopy:
         cf = 0.25                    # start with a quarter note, change accordingly
 
         for line in fr.readlines():
+            if line == '\n':
+                continue
             parts = line.split('||') # split by double pipe for octave switches
             for part in parts:
                 octave, melody = part.split('|')  # fetch the octave and notes
                 self.octave = octave              # set the octave
 
                 for i, frag in enumerate(melody):  # divide melody into fragments
-                    if frag in 'ABCDEFG':
+                    if frag == ' ' or frag == '\t':
+                        continue # ignore whitespace
+                    elif frag in 'ABCDEFG':
                         if (i+1 < len(melody)) and (melody[i+1] in '#b'):
                             # check if the next item in the array is 
                             #    a sharp or flat, make sure we include it
