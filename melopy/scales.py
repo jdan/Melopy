@@ -16,9 +16,11 @@ def bReturn(output, Type):
                 O[i] = output[i]
             return O
         elif Type.lower() == "string":
-            return ','.join(output)
+            return ''.join(output)
         elif Type.lower() == "stringspace":
             return ' '.join(output)
+        elif Type.lower() == "delemiter":
+            return ','.join(output)
         else:
             raise MelopyGenericError("Unknown type: " + Type)
     else:
