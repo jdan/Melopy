@@ -131,6 +131,8 @@ class Melopy:
         cf = 0.25                    # start with a quarter note, change accordingly
 
         for line in fr.readlines():
+            if line == '\n':
+                continue
             parts = line.split('||') # split by double pipe for octave switches
             for part in parts:
                 octave, melody = part.split('|')  # fetch the octave and notes
