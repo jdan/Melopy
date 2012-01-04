@@ -8,7 +8,7 @@ from utility import *
 from scales  import *
 
 class Melopy:
-    def __init__(self, title='sound', volume=50, tempo=120, octave=4):
+    def __init__(self, title='sound', volume=40, tempo=120, octave=4):
         self.title = title.lower()
         self.rate = 44100
         self.volume = volume
