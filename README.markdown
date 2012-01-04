@@ -11,6 +11,8 @@ For an example: check out canon.py
 To install:
 
     $ git clone git://github.com/prezjordan/Melopy
+    $ cd Melopy
+    $ python setup.py install
 
 To run the tests: (we've got some errors to work out)
 

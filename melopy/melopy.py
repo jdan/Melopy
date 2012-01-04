@@ -18,9 +18,6 @@ class Melopy:
         self.octave = octave
         self.wave_type = 'sine'
         
-    def isithere(self):
-        print 'lol'
-        
     def add_wave(self, frequency, length, location='END'):
         if location == 'END':
             location = len(self.data)
@@ -75,7 +72,7 @@ class Melopy:
             if item[-1] not in '0123456789':
                 item += str(self.octave)
 
-            self.add_wave(frequency_from_note(item), length, location)
+            self.add_wave(frequency_from_note(item, self.octave), length, location)
         
     def add_melody(self, melody, length):
         for note in melody:
@@ -85,23 +82,23 @@ class Melopy:
             
     def add_whole_note(self, note):
         """Add a whole note"""
-        self.add_note(note, 60.0 / self.tempo * 4)
+        self.add_fractional_note(note, 1.0)
         
     def add_half_note(self, note):
         """Add a half note"""
-        self.add_note(note, 60.0 / self.tempo * 2)
+        self.add_fractional_note(note, 1.0 / 2)
         
     def add_quarter_note(self, note):
         """Add a quarter note"""
-        self.add_note(note, 60.0 / self.tempo)
+        self.add_fractional_note(note, 1.0 / 4)
         
     def add_eighth_note(self, note):
         """Add a eigth note"""
-        self.add_note(note, 60.0 / self.tempo / 2)
+        self.add_fractional_note(note, 1.0 / 8)
         
     def add_sixteenth_note(self, note):
         """Add a sixteenth note"""
-        self.add_note(note, 60.0 / self.tempo / 4)
+        self.add_fractional_note(note, 1.0 / 16)
         
     def add_fractional_note(self, note, fraction):
         """Add a fractional note (smaller then 1/16 notes)"""
@@ -112,22 +109,49 @@ class Melopy:
             self.data.append(0)
             
     def add_whole_rest(self):
-        self.add_rest(60.0 / self.tempp * 4)
+        self.add_fractional_rest(1.0)
         
     def add_half_rest(self):
-        self.add_rest(60.0 / self.tempo * 2)
+        self.add_fractional_rest(1.0 / 2)
             
     def add_quarter_rest(self):
-        self.add_rest(60.0 / self.tempo)
+        self.add_fractional_rest(1.0 / 4)
         
     def add_eighth_rest(self):
-        self.add_rest(60.0 / self.tempo / 2)
+        self.add_fractional_rest(1.0 / 8)
         
     def add_sixteenth_rest(self):
-        self.add_rest(60.0 / self.tempo / 4)
+        self.add_fractional_rest(1.0 / 16)
         
     def add_fractional_rest(self, fraction):
         self.add_rest(60.0 / self.tempo * (fraction * 4))
+        
+    def parse(self, filename):
+        fr = open(filename, 'r')
+        cf = 0.25                    # start with a quarter note, change accordingly
+
+        for line in fr.readlines():
+            parts = line.split('||') # split by double pipe for octave switches
+            for part in parts:
+                octave, melody = part.split('|')  # fetch the octave and notes
+                self.octave = octave              # set the octave
+
+                for i, frag in enumerate(melody):  # divide melody into fragments
+                    if frag in 'ABCDEFG':
+                        if (i+1 < len(melody)) and (melody[i+1] in '#b'):
+                            # check if the next item in the array is 
+                            #    a sharp or flat, make sure we include it
+                            frag += melody[i+1]
+                        
+                        self.add_fractional_note(frag, cf)
+                    elif frag in '#b':
+                        continue # we deal with this above
+                    elif frag == '(' or frag == ']':
+                        cf /= 2
+                    elif frag == ')' or frag == '[':
+                        cf *= 2
+                    elif frag == '-':
+                        self.add_fractional_rest(cf)
         
     def render(self):
         """Render a playable song out to a .wav file"""
