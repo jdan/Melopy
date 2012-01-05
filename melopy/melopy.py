@@ -127,6 +127,15 @@ class Melopy:
         self.add_rest(60.0 / self.tempo * (fraction * 4))
         
     def parse(self, string, location='END'):
+        tracks = string.split('&&&')
+        
+        # special case for multiple tracks
+        if len(tracks) > 1:
+            t = len(self.data) / 44100.0
+            for track in tracks:
+                self.parse(track, t)
+            return
+        
         cf = 0.25                    # start with a quarter note, change accordingly
         string = '\n'.join(string.split('||'))
 
