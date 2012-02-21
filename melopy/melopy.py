@@ -186,6 +186,7 @@ class Melopy:
         melopy_writer = wave.open(self.title + '.wav', 'w')
         melopy_writer.setparams((2, 2, 44100, 0, 'NONE', 'not compressed'))
         p = -1
+        data_frames = []
         
         for i in range(len(self.data)):
             q = 100 * i / len(self.data)
@@ -194,8 +195,10 @@ class Melopy:
                 sys.stdout.flush()
                 p = q
             packed_val = struct.pack('h', int(self.data[i]))
-            melopy_writer.writeframes(packed_val)
-            melopy_writer.writeframes(packed_val)
+            data_frames.append(packed_val)
+            data_frames.append(packed_val)
+            
+        melopy_writer.writeframes(''.join(data_frames))
             
         sys.stdout.write("\r[%s] 100%%" % ('='*50))
         sys.stdout.flush()
