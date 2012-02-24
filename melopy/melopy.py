@@ -137,42 +137,31 @@ class Melopy:
             return
         
         cf = 0.25                    # start with a quarter note, change accordingly
-        string = '\n'.join(string.split('||'))
 
-        for line in string.split('\n'):
-            if line == '':
-                continue
-            
-            parts = line.split('|')
-            if len(parts) > 1:
-                octave, melody = parts[0], parts[1]  # fetch the octave and notes
-                self.octave = octave
-            else:
-                melody = parts[0]
-
-            for i, frag in enumerate(melody):        # divide melody into fragments
-                if frag == ' ' or frag == '\t':
-                    continue # ignore whitespace
-                elif frag in 'ABCDEFG':
-                    if (i+1 < len(melody)) and (melody[i+1] in '#b'):
-                        # check if the next item in the array is 
-                        #    a sharp or flat, make sure we include it
-                        frag += melody[i+1]
-                    
-                    self.add_fractional_note(frag, cf, location)
-                    if location != 'END':
-                        location += (60.0 / self.tempo * (cf * 4))
-                        
-                elif frag in '#b':
-                    continue # we deal with this above
-                elif frag == '(' or frag == ']':
-                    cf /= 2
-                elif frag == ')' or frag == '[':
-                    cf *= 2
-                elif frag == '-':
-                    self.add_fractional_rest(cf)
-                    if location != 'END':
-                        location += (60.0 / self.tempo * (cf * 4))
+        for i, char in enumerate(string):        # divide melody into fragments
+            if char in 'ABCDEFG':
+                if (i+1 < len(string)) and (string[i+1] in '#b'):
+                    # check if the next item in the array is 
+                    #    a sharp or flat, make sure we include it
+                    char += string[i+1]
+                
+                self.add_fractional_note(char, cf, location)
+                if location != 'END':
+                    location += (60.0 / self.tempo * (cf * 4))
+            elif char in map(str, range(0, 20)):
+                self.octave = int(char)
+            elif char == '+' or char == '^':
+                self.octave += 1
+            elif char == 'V' or char == 'v' or char == '-':
+                self.octave -= 1
+            elif char == '(' or char == ']':
+                cf /= 2
+            elif char == ')' or char == '[':
+                cf *= 2
+            elif char == '_':
+                self.add_fractional_rest(cf)
+                if location != 'END':
+                    location += (60.0 / self.tempo * (cf * 4))
                         
     def parsefile(self, filename, location='END'):
         fr = open(filename, 'r')
