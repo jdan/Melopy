@@ -137,9 +137,16 @@ class Melopy:
             return
         
         cf = 0.25                    # start with a quarter note, change accordingly
+        in_comment = False
 
         for i, char in enumerate(string):        # divide melody into fragments
-            if char in 'ABCDEFG':
+            # / this is a comment / 
+            if char == '/':
+                in_comment = not in_comment
+            
+            if in_comment:
+                continue
+            elif char in 'ABCDEFG':
                 if (i+1 < len(string)) and (string[i+1] in '#b'):
                     # check if the next item in the array is 
                     #    a sharp or flat, make sure we include it
