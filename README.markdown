@@ -1,6 +1,6 @@
 # Melopy (melo-pee)
 
-#### A python library for playing with sound. 
+#### A python library for playing with sound.
 #### by Jordan Scales (http://jordanscales.com) and friends
 #### on Github: http://github.com/prezjordan/Melopy
 
@@ -9,10 +9,11 @@ To install:
     $ git clone git://github.com/prezjordan/Melopy
     $ cd Melopy
     $ python setup.py install
-    
-For an example: check out canon.py 
+
+For examples, check out the `examples` directory:
 
     $ python examples/canon.py
+    $ python examples/parser.py entertainer < examples/meeps/entertainer.mp
 
 To run the tests: (we've got some errors to work out)
 
@@ -27,7 +28,7 @@ or:
 
 Melopy is broken down into 3 subcategories - `melopy`, `scales`, and `utility`.
 
-* `melopy.py` contains the Melopy class 
+* `melopy.py` contains the Melopy class
     * this is used for creating a Melopy and adding notes to it, rendering, etc
 * `scales.py` contains methods for generating scales
     * for instance, if you want to store the C major scale in an array
@@ -48,15 +49,15 @@ Done
 
 ## scales.py
 
-* chromatic_scale    
-* harmonic_minor_scale    
-* major_pentatonic_scale    
+* chromatic_scale
+* harmonic_minor_scale
+* major_pentatonic_scale
 * major_scale
 * minor_scale
 * major_triad
-* minor_triad    
-* melodic_minor_scale    
-* minor_pentatonic_scale     
+* minor_triad
+* melodic_minor_scale
+* minor_pentatonic_scale
 
 ```
 >>> from melopy.scales import *
@@ -76,9 +77,9 @@ Done
 
 ## utility.py
 
-* frequency_from_key    
-* frequency_from_note    
-* key_from_note    
+* frequency_from_key
+* frequency_from_note
+* key_from_note
 * note_from_key
 
 ```
