@@ -7,6 +7,21 @@ import os, sys
 from utility import *
 from scales  import *
 
+# same included wave functions
+# a function of frequency and tick
+#   each function accepts the frequency and tick,
+#   and returns a value from -1 to 1
+
+sine     = lambda f, t: math.sin(2 * math.pi * t * f / 44100.0)
+square   = lambda f, t: 0.6 * ((t % (44100 / f) >= ((44100 / f)/2)) * 2 - 1)
+sawtooth = lambda f, t: (t % (44100 / f)) / (44100 / f) * 2 - 1
+def triangle(f, t):
+    v = 2 * (t % (44100 / f)) / (44100 / f)
+    if t % (44100 / f) >= (44100 / (2 * f)):
+        v = 2 * 1 - v
+    v = 2 * v - 1
+    return v
+
 class Melopy:
     def __init__(self, title='sound', volume=20, tempo=120, octave=4):
         self.title = title.lower()
@@ -16,7 +31,7 @@ class Melopy:
 
         self.tempo = tempo
         self.octave = octave
-        self.wave_type = 'sine'
+        self.wave_type = sine
 
     def add_wave(self, frequency, length, location='END'):
         if location == 'END':
@@ -30,21 +45,7 @@ class Melopy:
         location = int(location * 44100)
 
         for n in range(0, int(44100 * length)):
-            period = 44100.0 / frequency
-
-            if self.wave_type == 'square':
-                val = ((n % int(period) >= (int(period)/2)) * 2) - 1
-                val *= 0.6
-            elif self.wave_type == 'sawtooth':
-                val = ((n % int(period)) / period * 2) - 1
-            elif self.wave_type == 'triangle':
-                val = 2 * (n % int(period)) / period
-                if n % int(period) >= (int(period) / 2):
-                    val = 2 * 1 - val
-                val = 2 * val - 1
-            else: # default to sine
-                val = math.sin(2 * math.pi * n / period)
-
+            val = self.wave_type(frequency, n)
             val *= self.volume / 100.0 * 32767
 
             if location + n >= len(self.data):
