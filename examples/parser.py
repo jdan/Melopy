@@ -2,7 +2,7 @@
 
 # generic parser for Melopy
 #
-#  $ python parser.py entertainer < examples/meeps/entertainer.mp
+#  $ python examples/parser.py entertainer < examples/meeps/entertainer.mp
 
 from melopy import *
 from sys import argv, exit
