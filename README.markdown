@@ -105,8 +105,7 @@ Done
 ```
 
 ## TODO
-* Implement custom wave-types
+* Get on PyPI
 * Create project page
-* Add music reader
 * Write to wav file bitwise? Rather than having an overhead
 * Add option to listen to files before rendering out (Render into RAM, play and then dump?)
