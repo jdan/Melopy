@@ -81,6 +81,8 @@ Done
 * key_to_note
 * note_to_frequency
 * note_to_key
+* frequency_to_key
+* frequency_to_note
 
 ```
 >>> from melopy.utility import *
@@ -96,6 +98,10 @@ Done
 'C#6'
 >>> key_to_note(304) # even something stupid
 'C26'
+>>> frequency_to_key(660)
+56
+>>> frequency_to_note(660)
+'E5'
 ```
 
 ## TODO
