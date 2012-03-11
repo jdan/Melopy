@@ -2,6 +2,17 @@ def key_to_frequency(key):
     """Returns the frequency of the note (key) keys from A0"""
     return 440 * 2 ** ((key - 49) / 12.0)
 
+def key_to_note(key, octaves=True):
+    """Returns a string representing a note which is (key) keys from A0"""
+    notes = ['a','a#','b','c','c#','d','d#','e','f','f#','g','g#']
+    octave = (key + 8) / 12
+    note = notes[(key - 1) % 12]
+
+    if octaves:
+        return note.upper() + str(octave)
+    else:
+        return note.upper()
+
 def note_to_frequency(note, default=4):
     """Returns the frequency of a note represented by a string"""
     return key_to_frequency(note_to_key(note, default))
@@ -24,17 +35,6 @@ def note_to_key(note, default=4):
         key -= 1
 
     return key - 8;
-
-def key_to_note(key, octaves=True):
-    """Returns a string representing a note which is (key) keys from A0"""
-    notes = ['a','a#','b','c','c#','d','d#','e','f','f#','g','g#']
-    octave = (key + 8) / 12
-    note = notes[(key - 1) % 12]
-
-    if octaves:
-        return note.upper() + str(octave)
-    else:
-        return note.upper()
 
 # Licensed under The MIT License (MIT)
 # See LICENSE file for more
