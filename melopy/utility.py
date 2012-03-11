@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from math import log
+
 def key_to_frequency(key):
     """Returns the frequency of the note (key) keys from A0"""
     return 440 * 2 ** ((key - 49) / 12.0)
@@ -35,6 +40,12 @@ def note_to_key(note, default=4):
         key -= 1
 
     return key - 8;
+
+def frequency_to_key(frequency):
+    return int(12 * log(frequency/440.0) / log(2) + 49)
+
+def frequency_to_note(frequency):
+    return key_to_note(frequency_to_key(frequency))
 
 # Licensed under The MIT License (MIT)
 # See LICENSE file for more
