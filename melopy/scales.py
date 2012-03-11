@@ -1,7 +1,7 @@
 class MelopyGenericError(Exception): pass
 class MelopyValueError(ValueError): pass
 
-from utility import key_from_note, note_from_key
+from utility import note_to_key, key_to_note
 
 def bReturn(output, Type):
     """Returns a selected output assuming input is a list"""
@@ -28,16 +28,16 @@ def bReturn(output, Type):
 
 def iterate(start, pattern, rType="list", octaves=True):
     """Iterates over a pattern starting at a given note"""
-    start_key = key_from_note(start)
+    start_key = note_to_key(start)
     ret = [start_key]
     for step in pattern:
         ret.append(ret[-1] + step)
-    
+
     for i, item in enumerate(ret):
-        ret[i] = note_from_key(ret[i], octaves)
-        
+        ret[i] = key_to_note(ret[i], octaves)
+
     return bReturn(ret, rType)
-    
+
 def major_scale(start, rType="list", octaves=True):
     """Generates a major scale using the pattern [2,2,1,2,2,2] (Returns: List)"""
     major_steps = [2,2,1,2,2,2]

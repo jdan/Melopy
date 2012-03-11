@@ -77,24 +77,24 @@ Done
 
 ## utility.py
 
-* frequency_from_key
-* frequency_from_note
-* key_from_note
-* note_from_key
+* key_to_frequency
+* key_to_note
+* note_to_frequency
+* note_to_key
 
 ```
 >>> from melopy.utility import *
->>> frequency_from_key(49)
+>>> key_to_frequency(49)
 440.0
->>> frequency_from_note('A4')
+>>> note_to_frequency('A4')
 440.0
->>> frequency_from_note('C5')
+>>> note_to_frequency('C5')
 523.2511306011972
->>> key_from_note('Bb5')
+>>> note_to_key('Bb5')
 62
->>> note_from_key(65)
+>>> key_to_note(65)
 'C#6'
->>> note_from_key(304) # even something stupid
+>>> key_to_note(304) # even something stupid
 'C26'
 ```
 

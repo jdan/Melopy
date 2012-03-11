@@ -1,12 +1,12 @@
-def frequency_from_key(key):
+def key_to_frequency(key):
     """Returns the frequency of the note (key) keys from A0"""
     return 440 * 2 ** ((key - 49) / 12.0)
 
-def frequency_from_note(note, default=4):
+def note_to_frequency(note, default=4):
     """Returns the frequency of a note represented by a string"""
-    return frequency_from_key(key_from_note(note, default))
+    return key_to_frequency(note_to_key(note, default))
 
-def key_from_note(note, default=4):
+def note_to_key(note, default=4):
     """Returns the key number (keys from A0) from a note represented by a string"""
     indices = { 'C':0, 'D':2, 'E':4, 'F':5, 'G':7, 'A':9, 'B':11 }
 
@@ -25,7 +25,7 @@ def key_from_note(note, default=4):
 
     return key - 8;
 
-def note_from_key(key, octaves=True):
+def key_to_note(key, octaves=True):
     """Returns a string representing a note which is (key) keys from A0"""
     notes = ['a','a#','b','c','c#','d','d#','e','f','f#','g','g#']
     octave = (key + 8) / 12
