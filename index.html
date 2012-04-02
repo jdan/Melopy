@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Melopy by prezjordan</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Melopy</h1>
+        <p>Python music library</p>
+        <p class="view"><a href="https://github.com/prezjordan/Melopy">View the Project on GitHub <small>prezjordan/Melopy</small></a></p>
+        <ul>
+          <li><a href="https://github.com/prezjordan/Melopy/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/prezjordan/Melopy/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/prezjordan/Melopy">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Melopy (melo-pee)</h1>
+
+<h4>A python library for playing with sound.</h4>
+
+<h4>by Jordan Scales (<a href="http://jordanscales.com">http://jordanscales.com</a>) and friends</h4>
+
+<h4>on Github: <a href="http://github.com/prezjordan/Melopy">http://github.com/prezjordan/Melopy</a></h4>
+
+<p>To install:</p>
+
+<pre><code>$ git clone git://github.com/prezjordan/Melopy
+$ cd Melopy
+$ python setup.py install
+</code></pre>
+
+<p>For examples, check out the <code>examples</code> directory:</p>
+
+<pre><code>$ python examples/canon.py
+$ python examples/parser.py entertainer &lt; examples/meeps/entertainer.mp
+</code></pre>
+
+<p>To run the tests: (we've got some errors to work out)</p>
+
+<pre><code>$ python setup.py test
+</code></pre>
+
+<p>or:</p>
+
+<pre><code>$ pip install -r requirements.txt
+$ nosetests
+</code></pre>
+
+<h2>Organization</h2>
+
+<p>Melopy is broken down into 3 subcategories - <code>melopy</code>, <code>scales</code>, and <code>utility</code>.</p>
+
+<ul>
+<li>
+<code>melopy.py</code> contains the Melopy class
+
+<ul>
+<li>this is used for creating a Melopy and adding notes to it, rendering, etc</li>
+</ul>
+</li>
+<li>
+<code>scales.py</code> contains methods for generating scales
+
+<ul>
+<li>for instance, if you want to store the C major scale in an array</li>
+</ul>
+</li>
+<li>
+<code>utility.py</code> contains methods for finding frequencies of notes, etc</li>
+</ul><h2>melopy.py</h2>
+
+<pre><code>&gt;&gt;&gt; from melopy import Melopy
+&gt;&gt;&gt; m = Melopy('mysong')
+&gt;&gt;&gt; m.add_quarter_note('A4')
+&gt;&gt;&gt; m.add_quarter_note('C#5')
+&gt;&gt;&gt; m.add_quarter_note('E5')
+&gt;&gt;&gt; m.render()
+[==================================================] 100%
+Done
+</code></pre>
+
+<h2>scales.py</h2>
+
+<ul>
+<li>chromatic_scale</li>
+<li>harmonic_minor_scale</li>
+<li>major_pentatonic_scale</li>
+<li>major_scale</li>
+<li>minor_scale</li>
+<li>major_triad</li>
+<li>minor_triad</li>
+<li>melodic_minor_scale</li>
+<li>minor_pentatonic_scale</li>
+</ul><pre><code>&gt;&gt;&gt; from melopy.scales import *
+&gt;&gt;&gt; major_scale('C4')
+['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4']
+&gt;&gt;&gt; major_scale('C4','dict')
+{0: 'C4', 1: 'D4', 2: 'E4', 3: 'F4', 4: 'G4', 5: 'A4', 6: 'B4'}
+&gt;&gt;&gt; major_scale('C4','tuple')
+('C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4')
+&gt;&gt;&gt; minor_scale('D#5')  # has some bugs
+['D#5', 'F5', 'F#5', 'G#5', 'A#5', 'B5', 'C#6']
+&gt;&gt;&gt; major_triad('A4')
+['A4', 'C#5', 'E5']
+&gt;&gt;&gt; major_triad('A4', 'tuple')
+('A4', 'C#5', 'E5')
+</code></pre>
+
+<h2>utility.py</h2>
+
+<ul>
+<li>key_to_frequency</li>
+<li>key_to_note</li>
+<li>note_to_frequency</li>
+<li>note_to_key</li>
+<li>frequency_to_key</li>
+<li>frequency_to_note</li>
+</ul><pre><code>&gt;&gt;&gt; from melopy.utility import *
+&gt;&gt;&gt; key_to_frequency(49)
+440.0
+&gt;&gt;&gt; note_to_frequency('A4')
+440.0
+&gt;&gt;&gt; note_to_frequency('C5')
+523.2511306011972
+&gt;&gt;&gt; note_to_key('Bb5')
+62
+&gt;&gt;&gt; key_to_note(65)
+'C#6'
+&gt;&gt;&gt; key_to_note(304) # even something stupid
+'C26'
+&gt;&gt;&gt; frequency_to_key(660)
+56
+&gt;&gt;&gt; frequency_to_note(660)
+'E5'
+</code></pre>
+
+<h2>TODO</h2>
+
+<ul>
+<li>Get on PyPI</li>
+<li>Create project page</li>
+<li>Write to wav file bitwise? Rather than having an overhead</li>
+<li>Add option to listen to files before rendering out (Render into RAM, play and then dump?)</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/prezjordan">prezjordan</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
