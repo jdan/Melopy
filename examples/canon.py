@@ -9,8 +9,6 @@ if __name__ == "__main__":
     m = Melopy('canon', 50)
     melody = []
 
-    m.wave_type = 'sawtooth'
-
     for start in ['d4', 'a3', 'b3m', 'f#3m', 'g3', 'd3', 'g3', 'a3']:
         if start.endswith('m'):
             scale = minor_scale(start[:-1])
