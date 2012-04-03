@@ -2,7 +2,7 @@
 
 #### A python library for playing with sound.
 #### by Jordan Scales (http://jordanscales.com) and friends
-#### on Github: http://github.com/prezjordan/Melopy
+#### on Github: http://prezjordan.github.com/Melopy
 
 To install:
 
