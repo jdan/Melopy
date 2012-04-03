@@ -29,6 +29,7 @@
       <a href="#melopy.py">melopy.py</a><br />
       <a href="#scales.py">scales.py</a><br />
       <a href="#utility.py">utility.py</a><br />
+      <a href="#meeps">meeps</a><br />
       
       </header>
       <section>
@@ -85,6 +86,14 @@ $ python examples/parser.py entertainer &lt; examples/meeps/entertainer.mp
 [==================================================] 100%
 Done
 </code></pre>
+
+      <p>Produces the follow result</p>
+      
+      <audio controls="controls">
+        <source src="media/mysong.wav" type="audio/wav" />
+        Your browser does not support the audio tag.
+      </audio><br /><br />
+
       <a id="scales.py"></a>
       <h2>scales.py</h2>
 
@@ -140,6 +149,127 @@ Done
 &gt;&gt;&gt; frequency_to_note(660)
 'E5'
 </code></pre>
+
+          <a id="meeps"></a>
+          <h2>Meeps</h2>
+          
+          <p>Meeps are files with a <code>.mp</code> extension that Melopy can easily process into music. 
+            They have a basic, comprehensible syntax that makes creating noise a painless process.</p>
+            
+<pre><code>m.parse('5EDCDEE[E]')
+</code></pre>
+          
+          <p>Is translated as...</p>
+          
+<pre><code>m.octave = 5
+m.add_quarter_note('E')
+m.add_quarter_note('D')
+m.add_quarter_note('C')
+m.add_quarter_note('D')
+m.add_quarter_note('E')
+m.add_quarter_note('E')
+m.add_half_note('D')
+</code></pre>
+
+          <audio controls="controls">
+            <source src="media/meep.wav" type="audio/wav" />
+            Your browser does not support the audio tag.
+          </audio><br /><br />
+          
+          <p>In this syntax...</p>
+          <ul>
+            <li>Whitespace does not matter</li>
+            <li>Octave can change at any time by specifying a number or shift (+, -, ^, or v)</li>
+            <li>Accidentals (# or b) can be placed after any note</li>
+            <li>Comments are written between forward slashes => / this is a comment /</li>
+            <li>Tracks (left and right hand) are split between three ampersands => &&&</li>
+          </ul>
+          
+          <p><b>Quick reference</b></p>
+          <table>
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>A, B, C, D, E, F, or G</td><td>Place a note</td>
+              </tr>
+              <tr>
+                <td>Any number (i.e. 4, 5)</td><td>Change the octave</td>
+              </tr>
+              <tr>
+                <td>+, -, ^, v</td><td>Shift the octave</td>
+              </tr>
+              <tr>
+                <td>whitespace</td><td>Ignored</td>
+              </tr>
+              <tr>
+                <td>/</td><td>Begin or end a comment</td>
+              </tr>
+              <tr>
+                <td>&&&</td><td>Begin a new track</td>
+              </tr>
+              <tr>
+                <td>(notes)</td><td>Place one or more notes at half the speed</td>
+              </tr>
+              <tr>
+                <td>[notes]</td><td>Place one or more notes at double the speed</td>
+              </tr>
+              <tr>
+                <td>_</td><td>Rest (can be wrapped in () or [])</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <p><b>Examples</b></p>
+<pre><code>2 C+ C+ C+ C+ [[C]]
+C - C - C - [[C]]
+</code></pre>
+
+          <audio controls="controls">
+            <source src="media/up_and_down.wav" type="audio/wav" />
+            Your browser does not support the audio tag.
+          </audio><br /><br />
+          
+<pre><code>5
+(ED#ED#E
+  vB
+  ^DC)
+  vA(_)
+</code></pre>
+
+          <audio controls="controls">
+            <source src="media/fur_elise.wav" type="audio/wav" />
+            Your browser does not support the audio tag.
+          </audio><br /><br />
+          
+<pre><code>4 (DD#)
+    (E)^Cv
+    (E)^Cv
+    (E)^[C]_
+
+5 (CDD#E CD)Ev(B)^D[C]_
+
+&&&
+
+3 C^C
+2 G^Bb
+2 F^A
+2 E^G
+
+2 G4C
+2 G^B
+2 C4CCvB
+</code></pre>
+
+          <audio controls="controls">
+            <source src="media/entertainer.wav" type="audio/wav" />
+            Your browser does not support the audio tag.
+          </audio><br /><br />
+
           </section>
           <footer>
           <b>Contributors</b><br />
