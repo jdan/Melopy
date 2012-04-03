@@ -87,15 +87,20 @@ def minor_triad(start, rType="list", octaves=True):
     minor_triad = [3, 4]
     return iterate(start, minor_triad, rType, octaves)
 
-def genScale(scale, note, rType="list"): #scale, start, type
-    """Example of better way to do scale generation @NOTE: Please don't use this in production! It might be taken out at a later time..."""
+def generateScale(scale, note, rType="list"): #scale, start, type
+    """
+    Generate a scale
+    scale (string): major, minor, melodic_minor, harmonic_minor, chromatic, major_pentatonic
+    note: start note
+    """
     scales = {
         "major":major_scale,
         "minor":minor_scale,
         "melodic_minor":melodic_minor_scale,
         "harmonic_minor":harmonic_minor_scale,
         "chromatic":chromatic_scale,
-        "major_pentatonic":major_pentatonic_scale
+        "major_pentatonic":major_pentatonic_scale,
+        "minor_pentatonic":minor_pentatonic_scale
     }
 
     if scale in scales:
