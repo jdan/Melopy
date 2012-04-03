@@ -26,6 +26,7 @@
       </ul>
       </header>
       <section>
+      <a id="getting-started"></a>
       <h2>Getting Started</h2>
       <p>To install:</p>
 <pre><code>$ git clone git://github.com/prezjordan/Melopy
@@ -42,7 +43,7 @@ $ python setup.py test
 <pre><code>$ python examples/canon.py
 $ python examples/parser.py entertainer &lt; examples/meeps/entertainer.mp
 </code></pre>
-
+      <a id="organization"></a>
       <h2>Organization</h2>
 
       <p>Melopy is broken down into 3 subcategories - <code>melopy</code>, <code>scales</code>, and <code>utility</code>.</p>
@@ -64,7 +65,10 @@ $ python examples/parser.py entertainer &lt; examples/meeps/entertainer.mp
         </li>
         <li>
         <code>utility.py</code> contains methods for finding frequencies of notes, etc</li>
-      </ul><h2>melopy.py</h2>
+      </ul>
+      
+      <a id="melopy.py"></a>
+      <h2>melopy.py</h2>
 
 <pre><code>&gt;&gt;&gt; from melopy import Melopy
 &gt;&gt;&gt; m = Melopy('mysong')
@@ -75,7 +79,7 @@ $ python examples/parser.py entertainer &lt; examples/meeps/entertainer.mp
 [==================================================] 100%
 Done
 </code></pre>
-
+      <a id="scales.py"></a>
       <h2>scales.py</h2>
 
       <ul>
@@ -102,7 +106,7 @@ Done
 &gt;&gt;&gt; major_triad('A4', 'tuple')
 ('A4', 'C#5', 'E5')
 </code></pre>
-
+        <a id="utility.py"></a>
         <h2>utility.py</h2>
 
         <ul>
@@ -130,7 +134,7 @@ Done
 &gt;&gt;&gt; frequency_to_note(660)
 'E5'
 </code></pre>
-
+          <a id="todo"></a>
           <h2>TODO</h2>
 
           <ul>
