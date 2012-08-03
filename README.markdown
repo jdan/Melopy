@@ -13,7 +13,7 @@ To install:
 For examples, check out the `examples` directory:
 
     $ python examples/canon.py
-    $ python examples/parser.py entertainer < examples/meeps/entertainer.mp
+    $ python examples/parser.py entertainer < examples/scores/entertainer.mlp
 
 To run the tests: (we've got some errors to work out)
 
@@ -106,6 +106,5 @@ Done
 
 ## TODO
 * Get on PyPI
-* Create project page
 * Write to wav file bitwise? Rather than having an overhead
 * Add option to listen to files before rendering out (Render into RAM, play and then dump?)
