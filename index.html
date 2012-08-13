@@ -18,26 +18,27 @@
       <header>
       <h1>Melopy (Melo-pee)</h1>
       <p>A Python library for playing with sound.</p>
-      
+      <!--
       <iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=prezjordan&repo=Melopy&type=watch&count=true"
         allowtransparency="true" frameborder="0" scrolling="0" width="110px" height="20px"></iframe>
       <iframe src="http://markdotto.github.com/github-buttons/github-btn.html?user=prezjordan&repo=Melopy&type=fork&count=true"
         allowtransparency="true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe>
       <br /><br />
-      
+      -->
+
       <p class="view"><a href="https://github.com/prezjordan/Melopy">View the Project on GitHub <small>prezjordan/Melopy</small></a></p>
       <ul>
         <li><a href="https://github.com/prezjordan/Melopy/zipball/master">Download <strong>ZIP File</strong></a></li>
         <li><a href="https://github.com/prezjordan/Melopy/tarball/master">Download <strong>TAR Ball</strong></a></li>
         <li><a href="https://github.com/prezjordan/Melopy">Fork On <strong>GitHub</strong></a></li>
       </ul>
-      
+
       <a href="#getting-started">Getting started</a><br />
       <a href="#melopy.py">melopy.py</a><br />
       <a href="#scales.py">scales.py</a><br />
       <a href="#utility.py">utility.py</a><br />
       <a href="#scores">Scores</a> &rarr; <a href="#examples">examples</a><br />
-      
+
       </header>
       <section>
       <a id="getting-started"></a>
@@ -80,7 +81,7 @@ $ python examples/parser.py entertainer &lt; examples/scores/entertainer.mlp
         <li>
         <code>utility.py</code> contains methods for finding frequencies of notes, etc</li>
       </ul>
-      
+
       <a id="melopy.py"></a>
       <h2>melopy.py</h2>
 
@@ -95,7 +96,7 @@ Done
 </code></pre>
 
       <p>Produces the follow result</p>
-      
+
       <audio controls="controls">
         <source src="media/mysong.wav" type="audio/wav" />
         Your browser does not support the audio tag.
@@ -159,15 +160,15 @@ Done
 
           <a id="scores"></a>
           <h2>Scores</h2>
-          
+
           <p>Scores are files with a <code>.mlp</code> extension that Melopy can easily process into music. 
             They have a basic, comprehensible syntax that makes creating noise a painless process.</p>
-            
+
 <pre><code>m.parse('5EDCDEE[E]')
 </code></pre>
-          
+
           <p>Is translated as...</p>
-          
+
 <pre><code>m.octave = 5
 m.add_quarter_note('E')
 m.add_quarter_note('D')
@@ -182,7 +183,7 @@ m.add_half_note('E')
             <source src="media/score.wav" type="audio/wav" />
             Your browser does not support the audio tag.
           </audio><br /><br />
-          
+
           <p>In this syntax...</p>
           <ul>
             <li>Whitespace does not matter</li>
@@ -191,7 +192,7 @@ m.add_half_note('E')
             <li>Comments are written between forward slashes => / this is a comment /</li>
             <li>Tracks (left and right hand) are split between three ampersands => &&&</li>
           </ul>
-          
+
           <p><b>Quick reference</b></p>
           <table>
             <thead>
@@ -230,10 +231,10 @@ m.add_half_note('E')
               </tr>
             </tbody>
           </table>
-          
+
           <a id="examples"></a>
           <p><b>Examples</b></p>
-          
+
 Up and Down
 <pre><code>2 C+ C+ C+ C+ [[C]]
 C - C - C - [[C]]
@@ -256,7 +257,7 @@ Fur Elise
             <source src="media/fur_elise.wav" type="audio/wav" />
             Your browser does not support the audio tag.
           </audio><br /><br />
-       
+
 The Entertainer 
 <pre><code>4 (DD#)
     (E)^Cv
