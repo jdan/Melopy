@@ -140,6 +140,19 @@ def augmented_triad(start):
     """use pattern builder to assign the correct sharps and flats based on the step pattern and note pattern"""
     return build_pattern(start, natural_triad, augmented_pattern)
 
+def get_diatonic_interval(note, note_set, basic_interval):
+    i = 0
+
+    if len(note) == 1: note += '5'
+    
+    for pitch in note_set:
+        if pitch[0:len(pitch)-1] == note[0:len(note)-1]:
+            if i + basic_interval -1 < 8:
+                return note_set[i + basic_interval - 1]
+            else:
+                return note_set[i + basic_interval - 8]
+        i = i + 1
+
 def genScale(scale, note, rType="list"): #scale, start, type
     """Example of better way to do scale generation @NOTE: Please don't use this in production! It might be taken out at a later time..."""
     scales = {
