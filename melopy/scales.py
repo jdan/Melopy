@@ -36,30 +36,30 @@ def iterate(start, pattern, rType="list"):
     
 def major_scale(start):
     """generates a major scale in any key using correct spelling - build major scale pattern"""
-    major_pattern = [0,2,2,1,2,2,2,1]
+    major_pattern = [0,2,2,1,2,2,2]
     
     """start by generating a scale of all natural notes starting at our start note"""
-    natural_scale = get_base_pattern(start, [0,1,2,3,4,5,6,7])
+    natural_scale = get_base_pattern(start, [0,1,2,3,4,5,6])
 
     """use pattern builder to assign the correct sharps and flats based on the step pattern and note pattern"""
     return build_pattern(start, natural_scale, major_pattern)
 
 def minor_scale(start, rType="list"): #Natural minor
     """Generates a minor scale in any key using correct spelling - build minor scale pattern"""
-    minor_pattern = [0,2,1,2,2,1,2,2]
+    minor_pattern = [0,2,1,2,2,1,2]
 
     """start by generating a scale of all natual notes starting at our start note"""
-    natural_scale = get_base_pattern(start, [0,1,2,3,4,5,6,7])
+    natural_scale = get_base_pattern(start, [0,1,2,3,4,5,6])
 
     """use pattern builder to assign the correct sharps and flats based on the step pattern and note pattern"""
     return build_pattern(start, natural_scale, minor_pattern)
 
 def melodic_minor_scale(start, rType="list"):
     """Generates a melodic minor scale in any key with correct spelling"""
-    melodic_pattern = [0,2,1,2,2,2,2,1]
+    melodic_pattern = [0,2,1,2,2,2,2]
 
     """start by generating a scale of all natural notes starting at our start note"""
-    natural_scale = get_base_pattern(start, [0,1,2,3,4,5,6,7])
+    natural_scale = get_base_pattern(start, [0,1,2,3,4,5,6])
 
     """use pattern builder to assign the correct sharps and flats based on step pattern and note pattern"""
     return build_pattern(start, natural_scale, melodic_pattern)
@@ -67,10 +67,10 @@ def melodic_minor_scale(start, rType="list"):
 
 def harmonic_minor_scale(start, rType="list"):
     """Generates a harmonic minor scale in any key with correct spelling"""
-    harmonic_pattern = [0,2,1,2,2,1,3,1]
+    harmonic_pattern = [0,2,1,2,2,1,3]
 
     """start by generating a scale of all natural notes starting at our start note"""
-    natural_scale = get_base_pattern(start, [0,1,2,3,4,5,6,7])
+    natural_scale = get_base_pattern(start, [0,1,2,3,4,5,6])
 
     """use pattern builder to assign the correct sharps and flats based on step pattern and note pattern"""
     return build_pattern(start, natural_scale, harmonic_pattern)
