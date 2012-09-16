@@ -1,7 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 class MelopyGenericError(Exception): pass
 class MelopyValueError(ValueError): pass
 
-from utility import key_to_note, note_to_key
+from utility import note_to_key, key_to_note
 from patternConstructor import *
 
 def bReturn(output, Type):
@@ -17,24 +20,29 @@ def bReturn(output, Type):
                 O[i] = output[i]
             return O
         elif Type.lower() == "string":
-            return ','.join(output)
+            return ''.join(output)
         elif Type.lower() == "stringspace":
             return ' '.join(output)
+        elif Type.lower() == "delemiter":
+            return ','.join(output)
         else:
             raise MelopyGenericError("Unknown type: " + Type)
     else:
         raise MelopyGenericError("Input to bReturn is not a list! Input: " + str(output))
 
-def iterate(start, pattern, rType="list"):
+def iterate(start, pattern, rType="list", octaves=True):
     """Iterates over a pattern starting at a given note"""
-    start_key = key_from_note(start)
+    start_key = note_to_key(start)
     ret = [start_key]
     for step in pattern:
         ret.append(ret[-1] + step)
-    ret = map(note_from_key, ret)
+
+    for i, item in enumerate(ret):
+        ret[i] = key_to_note(ret[i], octaves)
+
     return bReturn(ret, rType)
-    
-def major_scale(start):
+
+def major_scale(start, rType="list"):
     """generates a major scale in any key using correct spelling - build major scale pattern"""
     major_pattern = [0,2,2,1,2,2,2]
     
@@ -64,7 +72,6 @@ def melodic_minor_scale(start, rType="list"):
     """use pattern builder to assign the correct sharps and flats based on step pattern and note pattern"""
     return build_pattern(start, natural_scale, melodic_pattern)
 
-
 def harmonic_minor_scale(start, rType="list"):
     """Generates a harmonic minor scale in any key with correct spelling"""
     harmonic_pattern = [0,2,1,2,2,1,3]
@@ -80,7 +87,7 @@ def chromatic_scale(start, rType="list"):
     chromatic_steps = [1,1,1,1,1,1,1,1,1,1,1]
     return iterate(start, chromatic_steps, rType)
 
-def major_pentatonic_scale(start):
+def major_pentatonic_scale(start, rType="list"):
     """Generates a major pentatonic scale in any key with correct spelling"""
     pent_pattern = [0,2,2,3,2]
 
@@ -90,7 +97,7 @@ def major_pentatonic_scale(start):
     """use pattern builder to assign the correct sharps and flats based on th step pattern and note pattern"""
     return build_pattern(start, natural_scale, pent_pattern)
 
-def minor_pentatonic_scale(start):
+def minor_pentatonic_scale(start, rType="list"):
     """Generates a minor pentatonic scale in any key with correct spelling"""
     pent_pattern = [0,3,2,2,3]
 
@@ -154,14 +161,19 @@ def get_diatonic_interval(note, note_set, basic_interval):
         i = i + 1
 
 def generateScale(scale, note, rType="list"): #scale, start, type
-    """Example of better way to do scale generation @NOTE: Please don't use this in production! It might be taken out at a later time..."""
+    """
+    Generate a scale
+    scale (string): major, minor, melodic_minor, harmonic_minor, chromatic, major_pentatonic
+    note: start note
+    """
     scales = {
         "major":major_scale,
         "minor":minor_scale,
         "melodic_minor":melodic_minor_scale,
         "harmonic_minor":harmonic_minor_scale,
         "chromatic":chromatic_scale,
-        "major_pentatonic":major_pentatonic_scale
+        "major_pentatonic":major_pentatonic_scale,
+        "minor_pentatonic":minor_pentatonic_scale
     }
 
     if scale in scales:
