@@ -1,7 +1,7 @@
 class MelopyGenericError(Exception): pass
 class MelopyValueError(ValueError): pass
 
-from utility import key_from_note, note_from_key
+from utility import key_to_note, note_to_key
 from patternConstructor import *
 
 def bReturn(output, Type):
