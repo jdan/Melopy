@@ -8,21 +8,21 @@ from nose.tools import *
 from melopy import *
 
 class LibraryFunctionsTests(TestCase):
-    def test_frequency_from_key(self):
+    def test_key_to_frequency(self):
         key = 49
-        assert frequency_from_key(key) == 440
+        assert utility.key_to_frequency(key) == 440
 
-    def test_frequency_from_note(self):
+    def test_note_to_frequency(self):
         note = 'A4'
-        assert frequency_from_note(note) == 440
+        assert utility.note_to_frequency(note) == 440
 
-    def test_key_from_note(self):
+    def test_note_to_key(self):
         note = 'A4'
-        assert key_from_note(note) == 49
+        assert utility.note_to_key(note) == 49
 
-    def test_note_from_key(self):
+    def test_key_to_note(self):
         key = 49
-        assert note_from_key(key) == 'A4'
+        assert utility.key_to_note(key) == 'A4'
 
     def test_iterate(self):
         start = 'D4'
@@ -30,40 +30,40 @@ class LibraryFunctionsTests(TestCase):
         should_be = ['D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C#5']
         assert iterate(start, pattern) == should_be
 
-    def test_generate_major_scale(self):
+    def test_generate_major_scales(self):
         start = 'D4'
         should_be = ['D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C#5']
-        assert major_scale(start) == should_be
+        assert scales.generateScale('major', start) == should_be
 
-    def test_generate_minor_scale(self):
+    def test_generate_minor_scales(self):
         start = 'C4'
-        should_be = ['C4', 'D4', 'Eb4', 'F4', 'G4', 'Ab4', 'Bb4']
-        assert minor_scale(start) == should_be
+        should_be = ['C4', 'D4', 'D#4', 'F4', 'G4', 'G#4', 'A#4']
+        assert scales.generateScale('minor', start) == should_be
 
-    def test_generate_chromatic_scale(self):
+    def test_generate_chromatic_scales(self):
         start = 'C5'
         should_be= ['C5', 'C#5', 'D5', 'D#5', 'E5', 'F5', 'F#5', 'G5', 'G#5', 'A5', 'A#5', 'B5']
-        assert chromatic_scale(start) == should_be
+        assert scales.generateScale('chromatic', start) == should_be
 
-    def test_generate_major_pentatonic_scale(self):
+    def test_generate_major_pentatonic_scales(self):
         start = 'C5'
         should_be = ['C5', 'D5', 'E5', 'G5', 'A5']
-        assert major_pentatonic_scale(start) == should_be
+        assert scales.generateScale('major_pentatonic', start) == should_be
 
-    def test_generate_minor_pentatonic_scale(self):
+    def test_generate_minor_pentatonic_scales(self):
         start = 'A5'
         should_be = ['A5', 'C6', 'D6', 'E6', 'G6']
-        assert minor_pentatonic_scale(start) == should_be
+        assert scales.generateScale('minor_pentatonic', start) == should_be
        
     def test_generate_major_triad(self):
         start = 'A4'
         should_be = ['A4', 'C#5', 'E5']
-        assert major_triad(start) == should_be
+        assert scales.major_triad(start) == should_be
 
     def test_generate_minor_triad(self):
         start = 'C5'
-        should_be = ['C5', 'Eb5', 'G5']
-        assert minor_triad(start) == should_be
+        should_be = ['C5', 'D#5', 'G5']
+        assert scales.minor_triad(start) == should_be
 
 
 class MelopyTests(TestCase):
