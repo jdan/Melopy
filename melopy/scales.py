@@ -153,7 +153,7 @@ def get_diatonic_interval(note, note_set, basic_interval):
                 return note_set[i + basic_interval - 8]
         i = i + 1
 
-def genScale(scale, note, rType="list"): #scale, start, type
+def generateScale(scale, note, rType="list"): #scale, start, type
     """Example of better way to do scale generation @NOTE: Please don't use this in production! It might be taken out at a later time..."""
     scales = {
         "major":major_scale,
