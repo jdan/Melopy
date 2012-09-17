@@ -3,8 +3,6 @@
 
 from unittest import TestCase
 
-from nose.tools import *
-
 from melopy import *
 
 class LibraryFunctionsTests(TestCase):
