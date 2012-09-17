@@ -3,8 +3,6 @@
 
 import unittest
 
-from nose.tools import *
-
 from melopy import *
 
 def data_provider(data):
