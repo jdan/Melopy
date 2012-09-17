@@ -9,24 +9,30 @@ on Github: http://prezjordan.github.com/Melopy
 Install it
 ==========
 
+::
+
     $ pip install melopy
 
 Load it
 =======
 
+::
+
     $ python
     Python 2.7.2 (default, Jun 20 2012, 16:23:33) 
-    [GCC 4.2.1 Compatible Apple Clang 4.0 (tags/Apple/clang-418.0.60)] on darwin
-    Type "help", "copyright", "credits" or "license" for more information.
-    >>> import melopy
-    >>> melopy.major_scale('C5')
-    ['C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5']
-    >>> 
+    [GCC 4.2.1 Compatible Apple Clang 4.0 (tags/Apple/clang-418.0.60)] on darwin  
+    Type "help", "copyright", "credits" or "license" for more information.  
+    >>> import melopy  
+    >>> melopy.major_scale('C5')  
+    ['C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5']  
+    >>>   
 
 Develop
 =======
 
 To install locally:
+
+::
 
     $ git clone git://github.com/prezjordan/Melopy
     $ cd Melopy
@@ -34,10 +40,14 @@ To install locally:
 
 For examples, check out the `examples` directory:
 
-    $ python examples/canon.py
+::
+
+    $ python examples/canon.py  
     $ python examples/parser.py entertainer < examples/scores/entertainer.mlp
 
 To run the tests:
+
+::
 
     $ python tests/melopy_tests.py
 
@@ -118,8 +128,3 @@ utility.py
 56
 >>> frequency_to_note(660)
 'E5'
-
-TODO
-====
-* Write to wav file bitwise? Rather than having an overhead
-* Add option to listen to files before rendering out (Render into RAM, play and then dump?)
