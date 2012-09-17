@@ -2,22 +2,20 @@
 # -*- coding: utf-8 -*-
 
 try:
-    from setuptools import setup, find_packages
+    from setuptools import setup
 except ImportError:
-    from distutils.core import setup, find_packages
+    from distutils.core import setup
 
 config = {
         'name': u'Melopy',
         'author': u'Jordan Scales',
-        'author_email': u'',
+        'author_email': u'none',
         'description': u'Python music library',
-        'long_description': open(u'README.markdown').read(),
-        'packages': find_packages(),
-        'install_requires': [],
-        'tests_require': ['nose'],
-        'test_suite': u'nose.collector',
-        'version': u'',
+        'long_description': open(u'README.txt').read(),
+        'packages': ['melopy'],
+        'version': u'0.1.0',
         'url': u'https://github.com/prezjordan/Melopy',
+        'license': 'LICENSE.txt',
         'classifiers': [],
 }
 
