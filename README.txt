@@ -39,12 +39,7 @@ For examples, check out the `examples` directory:
 
 To run the tests: (we've got some errors to work out)
 
-    $ python setup.py test
-
-or:
-
-    $ pip install -r requirements.txt
-    $ nosetests
+    $ python tests/melopy_tests.py
 
 Organization
 ============
