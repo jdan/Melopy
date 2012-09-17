@@ -37,7 +37,7 @@ For examples, check out the `examples` directory:
     $ python examples/canon.py
     $ python examples/parser.py entertainer < examples/scores/entertainer.mlp
 
-To run the tests: (we've got some errors to work out)
+To run the tests:
 
     $ python tests/melopy_tests.py
 
