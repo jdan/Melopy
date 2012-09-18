@@ -33,7 +33,7 @@ class Melopy:
         self.octave = octave
         self.wave_type = sine
 
-    def add_wave(self, frequency, length, location='END'):
+    def add_wave(self, frequency, length, location='END', level=None):
         if location == 'END':
             location = len(self.data)
         elif location < 0:
@@ -43,10 +43,17 @@ class Melopy:
 
         # location is a time, so let's adjust
         location = int(location * 44100)
+        
+        if level == None:
+            level = self.volume
+        elif level > 100:
+            level = 100
+        elif level < 0:
+            level = 0
 
         for n in range(0, int(44100 * length)):
             val = self.wave_type(frequency, n)
-            val *= self.volume / 100.0 * 32767
+            val *= level / 100.0 * 32767
 
             if location + n >= len(self.data):
                 self.data.append(val)
@@ -61,19 +68,30 @@ class Melopy:
 
                 self.data[location + n] = val
 
-    def add_note(self, note, length, location='END'):
+    def add_note(self, note, length, location='END', volume=None):
         """Add a note, or if a list, add a chord."""
         if not isinstance(note, list):
             note = [note]
 
         if location == 'END':
             location = len(self.data) / 44100.0
+            
+        if not isinstance(volume, list):
+            volume = [volume]
+        if volume[0] == None:
+            volume = [float(self.volume)/len(note)] * len(note)
+            #By default, when adding a chord, set equal level for each
+            #component note, such that the sum volume is self.volume
+        else:
+            volume = volume + [volume[-1]]*(len(note) - len(volume))
+            #Otherwise, pad volume by repeating the final level so that we have
+            #enough level values for each note
 
-        for item in note:
+        for item, level in zip(note, volume):
             if item[-1] not in '0123456789':
                 item += str(self.octave)
 
-            self.add_wave(note_to_frequency(item, self.octave), length, location)
+            self.add_wave(note_to_frequency(item, self.octave), length, location, level)
 
     def add_melody(self, melody, length):
         for note in melody:
@@ -81,29 +99,29 @@ class Melopy:
                 note += self.octave
             self.add_wave(note_to_frequency(note), length)
 
-    def add_whole_note(self, note, location='END'):
+    def add_whole_note(self, note, location='END', volume=None):
         """Add a whole note"""
-        self.add_fractional_note(note, 1.0, location)
+        self.add_fractional_note(note, 1.0, location, volume)
 
-    def add_half_note(self, note, location='END'):
+    def add_half_note(self, note, location='END', volume=None):
         """Add a half note"""
-        self.add_fractional_note(note, 1.0 / 2, location)
+        self.add_fractional_note(note, 1.0 / 2, location, volume)
 
-    def add_quarter_note(self, note, location='END'):
+    def add_quarter_note(self, note, location='END', volume=None):
         """Add a quarter note"""
-        self.add_fractional_note(note, 1.0 / 4, location)
+        self.add_fractional_note(note, 1.0 / 4, location, volume)
 
-    def add_eighth_note(self, note, location='END'):
+    def add_eighth_note(self, note, location='END', volume=None):
         """Add a eigth note"""
-        self.add_fractional_note(note, 1.0 / 8, location)
+        self.add_fractional_note(note, 1.0 / 8, location, volume)
 
-    def add_sixteenth_note(self, note, location='END'):
+    def add_sixteenth_note(self, note, location='END', volume=None):
         """Add a sixteenth note"""
-        self.add_fractional_note(note, 1.0 / 16, location)
+        self.add_fractional_note(note, 1.0 / 16, location, volume)
 
-    def add_fractional_note(self, note, fraction, location='END'):
+    def add_fractional_note(self, note, fraction, location='END', volume=None):
         """Add a fractional note (smaller then 1/16 notes)"""
-        self.add_note(note, 60.0 / self.tempo * (fraction * 4), location)
+        self.add_note(note, 60.0 / self.tempo * (fraction * 4), location, volume)
 
     def add_rest(self, length):
         for i in range(int(self.rate * length)):
@@ -201,6 +219,10 @@ class Melopy:
         sys.stdout.flush()
         sys.stdout.write("\nDone\n")
         melopy_writer.close()
+        
+    def play(self):
+        """Opens the song in the os default program"""
+        os.startfile(self.title + '.wav')
 
 # Licensed under The MIT License (MIT)
 # See LICENSE file for more
