@@ -9,7 +9,7 @@ if __name__ == "__main__":
     song = Melopy('twinkle', 50)
 
     song.tempo = 160
-    song.wave_type = 'square'
+    song.wave_type = square
 
     part1notes = ['C', 'G', 'A', 'G', 'F', 'E', 'D', 'C']
     part2notes = ['G', 'F', 'E', 'D']
