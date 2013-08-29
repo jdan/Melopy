@@ -1,8 +1,9 @@
 # Melopy
 
-#### A python library for playing with sound.
-#### by Jordan Scales (http://jordanscales.com) and friends
-#### on Github: http://prezjordan.github.com/Melopy
+http://jdan.github.io/Melopy
+
+A python library for playing with sound.<br />
+*by [Jordan Scales](http://jordanscales.com) and friends*
 
 ## Install it
 
@@ -11,13 +12,13 @@
 ## Load it
 
     $ python
-    Python 2.7.2 (default, Jun 20 2012, 16:23:33) 
+    Python 2.7.2 (default, Jun 20 2012, 16:23:33)
     [GCC 4.2.1 Compatible Apple Clang 4.0 (tags/Apple/clang-418.0.60)] on darwin
     Type "help", "copyright", "credits" or "license" for more information.
     >>> import melopy
     >>> melopy.major_scale('C5')
     ['C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5']
-    >>> 
+    >>>
 
 ## Develop
 
