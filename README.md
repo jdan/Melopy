@@ -1,15 +1,15 @@
-# Melopy
+## Melopy
 
 http://jdan.github.io/Melopy
 
 A python library for playing with sound.<br />
 *by [Jordan Scales](http://jordanscales.com) and friends*
 
-## Install it
+### Install it
 
     $ pip install melopy
 
-## Load it
+### Load it
 
     $ python
     Python 2.7.2 (default, Jun 20 2012, 16:23:33)
@@ -20,7 +20,7 @@ A python library for playing with sound.<br />
     ['C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5']
     >>>
 
-## Develop
+### Development
 
 To install locally:
 
@@ -37,7 +37,7 @@ To run the tests:
 
     $ python tests/melopy_tests.py
 
-## Organization
+### Organization
 
 Melopy is broken down into 3 subcategories - `melopy`, `scales`, and `utility`.
 
@@ -47,7 +47,7 @@ Melopy is broken down into 3 subcategories - `melopy`, `scales`, and `utility`.
     * for instance, if you want to store the C major scale in an array
 * `utility.py` contains methods for finding frequencies of notes, etc
 
-## melopy.py
+### melopy.py
 
 ```
 >>> from melopy import Melopy
@@ -60,7 +60,7 @@ Melopy is broken down into 3 subcategories - `melopy`, `scales`, and `utility`.
 Done
 ```
 
-## scales.py
+### scales.py
 
 * chromatic_scale
 * harmonic_minor_scale
@@ -88,7 +88,7 @@ Done
 ('A4', 'C#5', 'E5')
 ```
 
-## utility.py
+### utility.py
 
 * key_to_frequency
 * key_to_note
