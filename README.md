@@ -11,14 +11,16 @@ A python library for playing with sound.<br />
 
 ### Load it
 
-    $ python
-    Python 2.7.2 (default, Jun 20 2012, 16:23:33)
-    [GCC 4.2.1 Compatible Apple Clang 4.0 (tags/Apple/clang-418.0.60)] on darwin
-    Type "help", "copyright", "credits" or "license" for more information.
-    >>> import melopy
-    >>> melopy.major_scale('C5')
-    ['C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5']
-    >>>
+```python
+$ python
+Python 2.7.2 (default, Jun 20 2012, 16:23:33)
+[GCC 4.2.1 Compatible Apple Clang 4.0 (tags/Apple/clang-418.0.60)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import melopy
+>>> melopy.major_scale('C5')
+['C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5']
+>>>
+```
 
 ### Development
 
@@ -49,7 +51,7 @@ Melopy is broken down into 3 subcategories - `melopy`, `scales`, and `utility`.
 
 ### melopy.py
 
-```
+```python
 >>> from melopy import Melopy
 >>> m = Melopy('mysong')
 >>> m.add_quarter_note('A4')
@@ -72,7 +74,7 @@ Done
 * melodic_minor_scale
 * minor_pentatonic_scale
 
-```
+```python
 >>> from melopy.scales import *
 >>> major_scale('C4')
 ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4']
@@ -97,7 +99,7 @@ Done
 * frequency_to_key
 * frequency_to_note
 
-```
+```python
 >>> from melopy.utility import *
 >>> key_to_frequency(49)
 440.0
