@@ -9,6 +9,8 @@ on Github: http://prezjordan.github.com/Melopy
 Install it
 ==========
 
+You may need to use `sudo` for this to work.
+
 ::
 
     $ pip install melopy
@@ -19,13 +21,13 @@ Load it
 ::
 
     $ python
-    Python 2.7.2 (default, Jun 20 2012, 16:23:33) 
-    [GCC 4.2.1 Compatible Apple Clang 4.0 (tags/Apple/clang-418.0.60)] on darwin  
-    Type "help", "copyright", "credits" or "license" for more information.  
-    >>> import melopy  
-    >>> melopy.major_scale('C5')  
-    ['C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5']  
-    >>>   
+    Python 2.7.2 (default, Jun 20 2012, 16:23:33)
+    [GCC 4.2.1 Compatible Apple Clang 4.0 (tags/Apple/clang-418.0.60)] on darwin
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> import melopy
+    >>> melopy.major_scale('C5')
+    ['C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5']
+    >>>
 
 Develop
 =======
@@ -42,7 +44,7 @@ For examples, check out the `examples` directory:
 
 ::
 
-    $ python examples/canon.py  
+    $ python examples/canon.py
     $ python examples/parser.py entertainer < examples/scores/entertainer.mlp
 
 To run the tests:

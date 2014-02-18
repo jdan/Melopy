@@ -7,6 +7,8 @@ A python library for playing with sound.<br />
 
 ### Install it
 
+You may need to use `sudo` for this to work.
+
     $ pip install melopy
 
 ### Load it
