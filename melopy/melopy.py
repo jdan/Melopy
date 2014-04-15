@@ -43,7 +43,7 @@ class Melopy:
 
         # location is a time, so let's adjust
         location = int(location * 44100)
-        
+
         if level == None:
             level = self.volume
         elif level > 100:
@@ -75,7 +75,7 @@ class Melopy:
 
         if location == 'END':
             location = len(self.data) / 44100.0
-            
+
         if not isinstance(volume, list):
             volume = [volume]
         if volume[0] == None:
@@ -219,7 +219,7 @@ class Melopy:
         sys.stdout.flush()
         sys.stdout.write("\nDone\n")
         melopy_writer.close()
-        
+
     def play(self):
         """Opens the song in the os default program"""
         os.startfile(self.title + '.wav')

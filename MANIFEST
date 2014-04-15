@@ -7,3 +7,5 @@ melopy/__init__.py
 melopy/melopy.py
 melopy/scales.py
 melopy/utility.py
+melopy/chords.py
+melopy/exceptions.py

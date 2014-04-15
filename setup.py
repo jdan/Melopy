@@ -10,7 +10,7 @@ config = {
     'description': 'Python music library',
     'long_description': open('README.txt').read(),
     'packages': ['melopy'],
-    'version': '0.1.0',
+    'version': '0.1.1',
     'url': 'https://github.com/prezjordan/Melopy',
     'license': 'LICENSE.txt',
     'classifiers': []
