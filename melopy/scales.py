@@ -9,7 +9,7 @@ SCALE_STEPS = {
   "melodic_minor":[2,1,2,2,2,2,1],
   "harmonic_minor":[2,1,2,2,2,1,2],
   "chromatic":[1,1,1,1,1,1,1,1,1,1,1],
-  "major_pentatonic":[3,2,2,3],
+  "major_pentatonic":[2,2,3,2],
   "minor_pentatonic":[3,2,2,3]
 }
 
@@ -22,7 +22,7 @@ def _get_mode(steps, mode):
 def generateScale(scale, note, mode=1, rType="list", octaves=True): #scale, start, type
     """
     Generate a scale
-    scale (string): major, minor, melodic_minor, harmonic_minor, chromatic, major_pentatonic
+    scale (string): major,  melodic_minor, harmonic_minor, chromatic, major_pentatonic
     note: start note
     """
     if scale in SCALE_STEPS:
