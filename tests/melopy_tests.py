@@ -3,7 +3,7 @@
 
 import unittest
 
-from melopy import *
+from melopy import chords, scales, utility, exceptions
 
 def data_provider(data):
     def decorator(fn):
@@ -34,17 +34,12 @@ class LibraryFunctionsTests(unittest.TestCase):
         start = 'D4'
         pattern = [2, 2, 1, 2, 2, 2]
         should_be = ['D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C#5']
-        self.assertEqual(should_be, iterate(start, pattern))
+        self.assertEqual(should_be, utility.iterate(start, pattern))
 
     def test_generate_major_scales(self):
         start = 'D4'
-        should_be = ['D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C#5']
+        should_be = ['D4', 'E4', 'F#4', 'G4', 'A4', 'B4', 'C#5','D5']
         self.assertEqual(should_be, scales.generateScale('major', start))
-
-    def test_generate_minor_scales(self):
-        start = 'C4'
-        should_be = ['C4', 'D4', 'D#4', 'F4', 'G4', 'G#4', 'A#4']
-        self.assertEqual(should_be, scales.generateScale('minor', start))
 
     def test_generate_chromatic_scales(self):
         start = 'C5'
@@ -60,16 +55,86 @@ class LibraryFunctionsTests(unittest.TestCase):
         start = 'A5'
         should_be = ['A5', 'C6', 'D6', 'E6', 'G6']
         self.assertEqual(should_be, scales.generateScale('minor_pentatonic', start))
-       
-    def test_generate_major_triad(self):
-        start = 'A4'
-        should_be = ['A4', 'C#5', 'E5']
-        self.assertEqual(should_be, scales.major_triad(start))
 
-    def test_generate_minor_triad(self):
-        start = 'C5'
-        should_be = ['C5', 'D#5', 'G5']
-        self.assertEqual(should_be, scales.minor_triad(start))
+    def test_generate_dorian_mode(self):
+      start = 'D5'
+      should_be = ['D5','E5','F5','G5','A5','B5','C6','D6']
+      self.assertEqual(should_be, scales.generateScale('major', start, mode=2))
+
+    def test_generate_phrygian_mode(self):
+      start = 'E5'
+      should_be = ['E5','F5','G5','A5','B5','C6','D6','E6']
+      self.assertEqual(should_be, scales.generateScale('major', start, mode=3))
+
+    def test_generate_lydian_mode(self):
+      start = 'C5'
+      should_be = ['C5','D5','E5','F#5','G5','A5','B5','C6']
+      self.assertEqual(should_be, scales.generateScale('major', start, mode=4))
+
+    def test_generate_mixolydian_mode(self):
+      start = 'C5'
+      should_be = ['C5','D5','E5','F5','G5','A5','A#5','C6']
+      self.assertEqual(should_be, scales.generateScale('major', start, mode=5))
+
+    def test_generate_dorian_flat_nine(self):
+      start = 'D5'
+      should_be = ['D5','D#5','F5','G5','A5','B5','C6','D6']
+      self.assertEqual(should_be, scales.generateScale('melodic_minor', start, mode=2))
+
+    def test_generate_lydian_augmented(self):
+      start = 'C5'
+      should_be = ['C5','D5','E5','F#5','G#5','A5','B5','C6']
+      self.assertEqual(should_be, scales.generateScale('melodic_minor', start, mode=3))
+
+    def test_generate_lydian_dominant(self):
+      start = 'C5'
+      should_be = ['C5','D5','E5','F#5','G5','A5','A#5','C6']
+      self.assertEqual(should_be, scales.generateScale('melodic_minor', start, mode=4))
+
+    def test_generate_major_triad(self):
+      start = 'C5'
+      should_be = ['C5','E5','G5']
+      self.assertEqual(should_be, chords.generateChord('maj', start))
+
+    def test_generate_min_triad(self):
+      start = 'C5'
+      should_be = ['C5','D#5','G5']
+      self.assertEqual(should_be, chords.generateChord('min', start))
+
+    def test_generate_maj_first_inversion(self):
+      start = 'C5'
+      should_be = ['E5','G5','C5']
+      self.assertEqual(should_be, chords.generateChord('maj', start, inversion=1))
+
+    def test_generate_maj_second_inversion(self):
+      start = 'C5'
+      should_be = ['G5','C5','E5']
+      self.assertEqual(should_be, chords.generateChord('maj', start, inversion=2))
+
+    def test_generate_maj_seven(self):
+      start = 'C5'
+      should_be = ['C5','E5','G5','B5']
+      self.assertEqual(should_be, chords.generateChord('maj7', start))
+
+    def test_generate_maj_seven(self):
+      start = 'C5'
+      should_be = ['C5','E5','G5','B5']
+      self.assertEqual(should_be, chords.generateChord('maj7', start))
+
+    def test_generate_aug(self):
+      start = 'C5'
+      should_be = ['C5','E5','G#5']
+      self.assertEqual(should_be, chords.generateChord('aug', start))
+
+    def test_generate_dim(self):
+      start = 'C5'
+      should_be = ['C5','D#5','F#5']
+      self.assertEqual(should_be, chords.generateChord('dim', start))
+
+    def test_generate_seven(self):
+      start = 'C5'
+      should_be = ['C5','E5','G5','A#5']
+      self.assertEqual(should_be, chords.generateChord('7', start))
 
 
 if __name__ == '__main__':
