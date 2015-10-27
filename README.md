@@ -28,7 +28,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 To install locally:
 
-    $ git clone git://github.com/prezjordan/Melopy
+    $ git clone git://github.com/jdan/Melopy
     $ cd Melopy
     $ python setup.py install
 

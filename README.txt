@@ -4,7 +4,7 @@ Melopy
 
 A python library for playing with sound.
 by Jordan Scales (http://jordanscales.com) and friends
-on Github: http://prezjordan.github.com/Melopy
+on Github: http://jdan.github.io/Melopy
 
 Install it
 ==========
@@ -36,7 +36,7 @@ To install locally:
 
 ::
 
-    $ git clone git://github.com/prezjordan/Melopy
+    $ git clone git://github.com/jdan/Melopy
     $ cd Melopy
     $ python setup.py install
 
