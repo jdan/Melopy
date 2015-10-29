@@ -11,7 +11,7 @@ config = {
     'long_description': open('README.txt').read(),
     'packages': ['melopy'],
     'version': '0.1.1',
-    'url': 'https://github.com/prezjordan/Melopy',
+    'url': 'https://github.com/jdan/Melopy',
     'license': 'LICENSE.txt',
     'classifiers': []
 }
