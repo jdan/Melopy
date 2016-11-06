@@ -88,14 +88,14 @@ class Melopy:
             #enough level values for each note
 
         for item, level in zip(note, volume):
-            if item[-1] not in '0123456789':
+            if not item[-1].isdigit():
                 item += str(self.octave)
 
             self.add_wave(note_to_frequency(item, self.octave), length, location, level)
 
     def add_melody(self, melody, length):
         for note in melody:
-            if note[-1] not in '0123456789':
+            if not note[-1].isdigit():
                 note += self.octave
             self.add_wave(note_to_frequency(note), length)
 
