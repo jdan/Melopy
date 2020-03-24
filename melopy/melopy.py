@@ -213,7 +213,7 @@ class Melopy:
             data_frames.append(packed_val)
             data_frames.append(packed_val)
 
-        melopy_writer.writeframes(''.join(data_frames))
+        melopy_writer.writeframes(b''.join(data_frames))
 
         sys.stdout.write("\r[%s] 100%%" % ('='*50))
         sys.stdout.flush()
