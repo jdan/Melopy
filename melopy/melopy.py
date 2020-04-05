@@ -51,14 +51,38 @@ class Melopy:
         elif level < 0:
             level = 0
 
-        for n in range(0, int(44100 * length)):
-            val = self.wave_type(frequency, n)
-            val *= level / 100.0 * 32767
+        num_samples = int(44100 * length)
+        fade_in_count = 0.005 * 44100
+        fade_out_count = 0.005 * 44100
+        fade_level = level
 
-            if location + n >= len(self.data):
+        #reduce the fade counts if the note isn't at least 8 times longer than the fade length
+        if (fade_in_count * 8) > num_samples:
+            fade_in_count = num_samples / 8
+        if (fade_out_count * 8) > num_samples:
+            fade_out_count = num_samples / 8
+
+        for n in range(0, num_samples):
+            fade_level = level
+
+            #fade in
+            if (n < fade_in_count):
+                fade_level = n * level / fade_in_count
+
+            #fade out
+            samples_left = num_samples - n
+            if samples_left < fade_out_count:
+                fade_level = samples_left * level / fade_out_count
+
+            wave_val = self.wave_type(frequency, n)
+            val = wave_val * (fade_level / 100.0 * 32767)
+
+            new_location = location + n
+
+            if new_location >= len(self.data):
                 self.data.append(val)
             else:
-                current_val = self.data[location + n]
+                current_val = self.data[new_location]
                 if current_val + val > 32767:
                     val = 32767
                 elif current_val + val < -32768:
@@ -66,7 +90,7 @@ class Melopy:
                 else:
                     val += current_val
 
-                self.data[location + n] = val
+                self.data[new_location] = val
 
     def add_note(self, note, length, location='END', volume=None):
         """Add a note, or if a list, add a chord."""
