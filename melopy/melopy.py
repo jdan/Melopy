@@ -220,28 +220,36 @@ class Melopy:
 
         self.parse(s, location)
 
-    def render(self):
+    def stdout_progress(percent):
+        sys.stdout.write("\r[%s] %d%%" % (('='*int(percent * 0.5)+'>').ljust(50), percent))
+        sys.stdout.flush()
+        if (percent >= 100):
+            sys.stdout.write("\r[%s] 100%%" % ('='*51))
+            sys.stdout.flush()
+            sys.stdout.write("\nDone\n")
+
+    def render(self, update_callback=stdout_progress):
         """Render a playable song out to a .wav file"""
         melopy_writer = wave.open(self.title + '.wav', 'w')
         melopy_writer.setparams((2, 2, 44100, 0, 'NONE', 'not compressed'))
-        p = -1
+        last_percent = -1
         data_frames = []
+        callback_present = callable(update_callback)
 
         for i in range(len(self.data)):
-            q = 100 * i / len(self.data)
-            if p != q:
-                sys.stdout.write("\r[%s] %d%%" % (('='*int((float(i)/len(self.data)*50))+'>').ljust(50), 100 * i / len(self.data)))
-                sys.stdout.flush()
-                p = q
+            percent = 100 * i // len(self.data)
+            if callback_present and last_percent != percent:
+                update_callback(percent)
+                last_percent = percent 
             packed_val = struct.pack('h', int(self.data[i]))
             data_frames.append(packed_val)
             data_frames.append(packed_val)
 
         melopy_writer.writeframes(b''.join(data_frames))
 
-        sys.stdout.write("\r[%s] 100%%" % ('='*50))
-        sys.stdout.flush()
-        sys.stdout.write("\nDone\n")
+        if callback_present:
+            update_callback(100)
+
         melopy_writer.close()
 
     def play(self):
