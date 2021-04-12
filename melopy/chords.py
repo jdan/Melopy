@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from utility import note_to_key, key_to_note, iterate
-from exceptions import MelopyGenericError
+from melopy.utility import note_to_key, key_to_note, iterate
+from melopy.exceptions import MelopyGenericError
 
 CHORD_INTERVALS = {
     'maj': [4,3],

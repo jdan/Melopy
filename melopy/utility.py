@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from math import log
-from exceptions import MelopyGenericError, MelopyValueError
+from melopy.exceptions import MelopyGenericError, MelopyValueError
 
 def key_to_frequency(key):
     """Returns the frequency of the note (key) keys from A0"""
