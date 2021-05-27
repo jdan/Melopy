@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import division, absolute_import
 from math import log
 from melopy.exceptions import MelopyGenericError, MelopyValueError
 

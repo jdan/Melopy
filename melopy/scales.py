@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import absolute_import, division
 from melopy.utility import note_to_key, key_to_note, iterate
 from melopy.exceptions import MelopyGenericError
 

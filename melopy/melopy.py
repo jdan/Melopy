@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import division, absolute_import
+
 import wave, struct, random, math
 import os, sys
 

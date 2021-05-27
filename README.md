@@ -39,7 +39,7 @@ For examples, check out the `examples` directory:
 
 To run the tests:
 
-    $ python tests/melopy_tests.py
+    $ python tests.py
 
 ### Organization
 
