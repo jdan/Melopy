@@ -24,8 +24,8 @@ Load it
     Python 2.7.2 (default, Jun 20 2012, 16:23:33)
     [GCC 4.2.1 Compatible Apple Clang 4.0 (tags/Apple/clang-418.0.60)] on darwin
     Type "help", "copyright", "credits" or "license" for more information.
-    >>> import melopy
-    >>> melopy.major_scale('C5')
+    >>> from melopy.scales import generateScale
+    >>> generateScale('major', 'C5')
     ['C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5']
     >>>
 
