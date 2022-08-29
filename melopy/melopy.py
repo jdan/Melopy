@@ -136,7 +136,7 @@ class Melopy:
         self.add_fractional_note(note, 1.0 / 4, location, volume)
 
     def add_eighth_note(self, note, location='END', volume=None):
-        """Add a eigth note"""
+        """Add a eighth note"""
         self.add_fractional_note(note, 1.0 / 8, location, volume)
 
     def add_sixteenth_note(self, note, location='END', volume=None):
