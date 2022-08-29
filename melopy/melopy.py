@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import division, absolute_import
+
 import wave, struct, random, math
 import os, sys
 
-from utility import *
-from scales  import *
+from melopy.utility import *
+from melopy.scales  import *
 
 # same included wave functions
 # a function of frequency and tick

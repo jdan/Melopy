@@ -18,9 +18,9 @@ $ python
 Python 2.7.2 (default, Jun 20 2012, 16:23:33)
 [GCC 4.2.1 Compatible Apple Clang 4.0 (tags/Apple/clang-418.0.60)] on darwin
 Type "help", "copyright", "credits" or "license" for more information.
->>> import melopy
->>> melopy.major_scale('C5')
-['C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5']
+>>> from melopy.scales import generateScale
+>>> generateScale('major', 'c4')
+['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5']
 >>>
 ```
 
@@ -39,7 +39,7 @@ For examples, check out the `examples` directory:
 
 To run the tests:
 
-    $ python tests/melopy_tests.py
+    $ python tests.py
 
 ### Organization
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import, division, nested_scopes
 
 import unittest
 

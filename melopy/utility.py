@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import division, absolute_import
 from math import log
-from exceptions import MelopyGenericError, MelopyValueError
+from melopy.exceptions import MelopyGenericError, MelopyValueError
 
 def key_to_frequency(key):
     """Returns the frequency of the note (key) keys from A0"""
@@ -11,7 +12,7 @@ def key_to_frequency(key):
 def key_to_note(key, octaves=True):
     """Returns a string representing a note which is (key) keys from A0"""
     notes = ['a','a#','b','c','c#','d','d#','e','f','f#','g','g#']
-    octave = (key + 8) / 12
+    octave = (key + 8) // 12
     note = notes[(key - 1) % 12]
 
     if octaves:
